@@ -18,6 +18,7 @@ import Coupon from "./components/Coupon/Coupon";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Bag from './components/Bag/Bag'
 import Address from "./components/Bag/Address";
+import Try from "../src/components/Navbar/Submenu/try.jsx"
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
@@ -68,6 +69,7 @@ function App() {
       <Coupon />
       <Routes>
         <Route path="/" element={<Home/>}/>
+        <Route path="/ColorAnalysis" element={<Try/>}/>
         <Route path="/Login" element={<Login/>}/>
         <Route path="/verifying" element={<Otpverify/>}/>
         <Route path='/registeruser' element={<Registeruser/>}/>

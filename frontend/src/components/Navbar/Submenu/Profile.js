@@ -1,10 +1,12 @@
 import React,{Fragment} from 'react'
 import { useTransition, animated } from 'react-spring'
-import {Link} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Link, Routes } from 'react-router-dom';
+// import {Link} from 'react-router-dom'
 import { getuser, logout } from '../../../action/useraction'
 import { useDispatch} from 'react-redux'
 import { useAlert } from 'react-alert'
 import {registermobile, otpverifie} from '../../../action/useraction'
+import Try from "./try.jsx"
 
 const Profile = ({show, CMenu, parentCallback, user}) => {
   const dispatch = useDispatch()
@@ -55,14 +57,16 @@ const Profile = ({show, CMenu, parentCallback, user}) => {
                   }
                
                
-                <hr className='my-4' />
+               <hr className='my-4' />
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Orders</h1>
+                <Link to="/ColorAnalysis" ><h1 className='litext list-none py-0.5  hover:font-semibold'>Color Analysis</h1></Link>
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Wishlist</h1>
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Gift Cards</h1>
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Contact Us</h1>
                 <div className='flex'>
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Myntra Insider </h1><div className='bg-[#ff3f6c] flex w-max h-max ml-2 mt-2 float-left px-1 text-xs skewnew text-white'>New</div>
                 </div>
+                
                
 
                 <hr className='my-4' />
