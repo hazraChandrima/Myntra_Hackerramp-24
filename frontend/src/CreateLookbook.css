@@ -1,0 +1,220 @@
+.CreateLookbook {
+  text-align: center;
+  margin-top: 20px; /* Adjust margin from the top */
+}
+
+.lookbook-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Adjust gap between elements */
+  max-width: 800px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center align the container */
+}
+
+.content {
+  display: flex;
+  gap: 20px; /* Adjust gap between columns */
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust gap between rows */
+}
+
+.box {
+  background-color: #f0f0f0;
+  height: 200px; /* Adjust height of each box */
+  overflow: hidden;
+}
+
+.box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.form-section {
+  width: 100%; /* Ensure form section takes full width */
+  max-width: 400px; /* Adjust max-width as needed */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px; /* Adjust font size */
+  font-weight: bold;
+}
+
+.tag-input {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust gap between input and button */
+}
+
+.tag-input input[type="text"] {
+  flex: 1; /* Take remaining space */
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag {
+  background-color: #e41751;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.tag .remove-tag-button {
+  padding: 2px 6px;
+  font-size: 14px;
+  background-color: #bf0e42;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 5px;
+}
+
+.tag .remove-tag-button:hover {
+  background-color: #a90c39;
+}
+
+.create-lookbook-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e41751;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-top: 20px;
+}
+
+.create-lookbook-button:hover {
+  transform: scale(1.1);
+}
+
+.tag-input .add-tag-button {
+  padding: 8px 12px; /* Adjust button padding */
+  font-size: 16px;
+  background-color: #e41751; /* Pink color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tag-input .add-tag-button:hover {
+  background-color: #bf0e42; /* Darker shade of pink on hover */
+}
+.form-group input[type="text"] {
+  width: 100%; /* Ensure input takes full width */
+  padding: 8px; /* Adjust padding as needed */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.tag-input input[type="text"],
+.form-group input[type="text"] {
+  flex: 1; /* Take remaining space */
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.content {
+  display: flex;
+  gap: 20px; /* Adjust gap between columns */
+  height: 400px; /* Increase height of the content */
+  border: 1px solid #000; /* Black border */
+  padding: 10px; /* Padding inside the border */
+}
+.lookbook-container {
+  display: flex;
+  flex-direction: row; /* Ensure items are in a row */
+  justify-content: space-between; /* Space items evenly along the main axis */
+  align-items: flex-start; /* Align items to the start of the cross axis */
+  gap: 20px; /* Adjust gap between elements */
+  max-width: 800px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center align the container */
+}
+
+.left-column {
+  flex: 1; /* Take remaining space */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust gap between rows */
+}
+
+.right-column {
+  flex: 1; /* Take remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to the start */
+  gap: 20px; /* Adjust gap between rows */
+}
+
+.form-section {
+  flex: 1; /* Take remaining space */
+  max-width: 400px; /* Adjust max-width as needed */
+}
+.lookbook-container {
+  display: flex;
+  justify-content: space-between; /* Space items evenly along the main axis */
+  align-items: flex-start; /* Align items to the start of the cross axis */
+  gap: 20px; /* Adjust gap between elements */
+  max-width: 1200px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center align the container */
+}
+
+.left-column {
+  width: calc(100% - 400px); /* Adjust width to leave space for right column */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust gap between rows */
+}
+
+.right-column {
+  width: 400px; /* Fixed width for input areas/buttons */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to the start */
+  gap: 20px; /* Adjust gap between rows */
+}
+
+.form-section {
+  margin-top: 100px; /* Move the entire form section (inputs and button) lower */
+}
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+  
