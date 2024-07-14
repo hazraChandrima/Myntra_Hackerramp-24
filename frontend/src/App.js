@@ -6,7 +6,7 @@ import LookbookButton from './LookbookButton';
 import LookbookPopup from './LookbookPopup';
 import CreateLookbook from './CreateLookbook';
 import UploadLookbook from './UploadLookbook';
-import Lookbooks from './Lookbooks'; // Import the Lookbooks component
+import Lookbooks from './Lookbooks'; 
 import ProductPage from './ProductPage';
 import Navbar from './components/Navbar/Navbar.js';
 import Home from "./components/Home/Home.js";
@@ -23,6 +23,7 @@ import Footer from "./components/Footer/Footer";
 import Coupon from "./components/Coupon/Coupon";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Bag from './components/Bag/Bag';
+import AIWardrobe from './components/Navbar/AIWardrobe/Wardrobe.jsx';
 import Address from "./components/Bag/Address";
 import Try from "../src/components/Navbar/Submenu/try.jsx";
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -93,6 +94,7 @@ function App() {
           <Route path="/CreateLookbook" element={<CreateLookbook/>}/>
           <Route path="/uploadLookbook" element={<UploadLookbook />} />
           <Route path="/lookbooks" element={<Lookbooks />} />
+          <Route path="/ai_wardrobe" element={<AIWardrobe/>}/>
       </Routes>
       <Footer />
     </Router>
