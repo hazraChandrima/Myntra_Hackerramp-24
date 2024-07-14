@@ -17,7 +17,7 @@ const UploadLookbook = () => {
   return (
     <div className="upload-lookbook-page">
       <h2 className="lookbook-title">{name}</h2>
-      <div className="container">
+      <div className="containerLB">
         <div className="header">
           <div className="avatar">
             <FontAwesomeIcon icon={faUserCircle} size="2x" />

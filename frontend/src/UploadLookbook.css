@@ -11,7 +11,7 @@ body {
     margin: 20px 0;
   }
   
-  .container {
+  .containerLB {
     width: 300px;
     border: 1px solid #ccc;
     border-radius: 10px;
