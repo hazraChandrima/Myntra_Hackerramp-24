@@ -11,7 +11,7 @@ const UploadLookbook = () => {
   const { name, tags, images, boosts, time } = state || {};
 
   const handleUploadClick = () => {
-    navigate('/Lookbooks');
+    navigate('/lookbooks');
   };
 
   return (
