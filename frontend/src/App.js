@@ -85,11 +85,11 @@ function App() {
         <Route path="/bag" element={<Bag user={user} />} />
         <Route path="/address/bag" element={<Address user={user} />} />
         <Route path="/product-1" element={<>
-            <ProductPage />
-            <LookbookButton onClick={togglePopup} />
             <LookbookPopup show={showPopup} onClose={togglePopup} />
+            <LookbookButton onClick={togglePopup} />
+            <ProductPage />
+
           </>} />
-          <Route path="/CreateLookbook" element={<CreateLookbook />} />
           <Route path="/uploadLookbook" element={<UploadLookbook />} />
           <Route path="/lookbooks" element={<Lookbooks />} />
       </Routes>
