@@ -90,6 +90,7 @@ function App() {
             <ProductPage />
 
           </>} />
+          <Route path="/CreateLookbook" element={<CreateLookbook/>}/>
           <Route path="/uploadLookbook" element={<UploadLookbook />} />
           <Route path="/lookbooks" element={<Lookbooks />} />
       </Routes>
