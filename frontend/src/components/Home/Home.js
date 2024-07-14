@@ -396,14 +396,14 @@ const Home = () => {
             <div>
               <h1 className='text-3xl px-8 font-bold font1 tracking-widest text-slate-800 mb-8 mt-8'>BEST OF MYNTRA EXCLUSIVE BRANDS</h1>
               <div className='grid grid-cols-8 gap-1'>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a1} alt="" className="min-h-[200px]" /></Link>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a2} alt="" className="min-h-[200px]" /></Link>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a3} alt="" className="min-h-[200px]" /></Link>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a4} alt="" className="min-h-[200px]" /></Link>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a5} alt="" className="min-h-[200px]" /></Link>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a6} alt="" className="min-h-[200px]" /></Link>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a7} alt="" className="min-h-[200px]" /></Link>
-                <Link to='/products'><LazyLoadImage effect='blur' src={a8} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a1} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a2} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a3} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a4} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a5} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a6} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a7} alt="" className="min-h-[200px]" /></Link>
+                <Link to='/product-1'><LazyLoadImage effect='blur' src={a8} alt="" className="min-h-[200px]" /></Link>
                 <Link to='/products'><LazyLoadImage effect='blur' src={a9} alt="" className="min-h-[200px]" /></Link>
                 <Link to='/products'><LazyLoadImage effect='blur' src={a10} alt=""className="min-h-[200px]" /></Link>
                 <Link to='/products'><LazyLoadImage effect='blur' src={a11} alt=""className="min-h-[200px]" /></Link>
