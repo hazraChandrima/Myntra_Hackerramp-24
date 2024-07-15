@@ -3,6 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import Webcam from 'react-webcam';
 
+
+
+
+
+
 const css = `
 .bg {
     font-family: Arial, sans-serif;
@@ -93,7 +98,7 @@ p {
 
 .colors-container {
     display: flex;
-    justify-content: center;
+    flex-wrap:wrap;
     margin-bottom: 20px;
 }
 
@@ -162,16 +167,80 @@ margin:10px;
 }
 
 #comp-color1{
-background-color:#E2E9B0;
+background-color:#fefefe;
 }
 
 #comp-color2{
-background-color:#04395E;
+background-color:#82CAFF;
 }
 
 #comp-color3{
-background-color:#A40E4C;
+background-color:#6495ED;
 }
+#comp-color4{
+background-color:#007fa3;
+}
+#comp-color5{
+background-color:#0000FF;
+}
+#comp-color6{
+background-color:#0085d6;
+}
+#comp-color7{
+background-color:#007fa3;
+}
+#comp-color8{
+background-color:#006280;
+}
+#comp-color9{
+background-color:#0059ba;
+}
+#comp-color10{
+background-color:#004c89;
+}
+#comp-color11{
+background-color:#86339d;
+}
+#comp-color12{
+background-color:#973cbe;
+}
+#comp-color13{
+background-color:#c824b2;
+}
+#comp-color14{
+background-color:#db1885;
+}
+#comp-color15{
+background-color:#e4006f;
+}
+#comp-color16{
+background-color:#d00039;
+}
+#comp-color17{
+background-color:#ab0062;
+}
+#comp-color18{
+background-color:#c824b2;
+}
+#comp-color19{
+background-color:#db1885;
+}
+#comp-color21{
+background-color:#6a4a3a;
+}
+#comp-color22{
+background-color:#a08679;
+}
+#comp-color23{
+background-color:#722F37;
+}
+#comp-color24{
+background-color:#F5DEB3;
+}
+#comp-color20{
+background-color:#e4006f;
+}
+
 .video-container {
     width: 100%;
     max-width: 320px; /* Adjust as needed */
@@ -332,14 +401,103 @@ background-color:#A40E4C;
 }
 
 
+#step3 {
+    text-align: center;
+    padding: 20px;
+}
 
+#step3 h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#step3 p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+#step3 h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align:center;
+}
+
+.colors-containers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns with equal width */
+    grid-auto-rows: 50px; /* Height of each row */
+    grid-gap: 0; /* No gap between grid items */
+    justify-items: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    width:500px;
+    margin-left:500px;
+}
+
+.color-boxes {
+    width: 100%; /* Each box takes up 100% width of its grid cell */
+    height: 100%; /* Each box takes up 100% height of its grid cell */
+    background-color: #ccc; /* Placeholder color */
+    border-top: 1px solid #ccc; /* Border on the top */
+    border-right: 1px solid #ccc; /* Border on the right */
+}
+
+
+
+.navigation {
+    margin-top: 20px;
+}
+
+.navigation button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navigation button:hover {
+    background-color: #0056b3;
+}
+
+.previous {
+    margin-right: 10px;
+}
+.colors-containers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns with equal width */
+    grid-auto-rows: 50px; /* Height of each row */
+    grid-gap: 0; /* No gap between grid items */
+    justify-items: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    width: 500px; /* Adjust width as needed */
+    margin-left: 500px; /* Adjust left margin as needed */
+}
+
+.color-boxes {
+    width: 100%; /* Each box takes up 100% width of its grid cell */
+    height: 100%; /* Each box takes up 100% height of its grid cell */
+    background-color: #ccc; /* Placeholder color */
+    border: 1px solid transparent; /* Initial 1px transparent border */
+    border-top: 1px solid #ccc; /* Initial 1px solid #ccc on top */
+    border-right: 1px solid #ccc; /* Initial 1px solid #ccc on right */
+    transition: border-color 0.3s, transform 0.3s; /* Transition for border color and transform */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    box-sizing: border-box; /* Include border in width/height calculations */
+}
+
+.color-boxes.selected {
+    border: 3px solid #000;
+    border-radius:5px; /* Black border of 3px when selected on all sides */
+    transform: scale(1.05); /* Slightly larger size on click */
+}
 
 
 
 `;
 
 export default function Try() {
-
 
     const [uploadedImage, setUploadedImage] = useState(null);
     const [selectedColors, setSelectedColors] = useState([]);
@@ -348,20 +506,21 @@ export default function Try() {
     const complementaryColorsRef = useRef(null); // Ref for complementary colors container
     const videoRef = useRef(null); // Ref for video element
     const [videoStream, setVideoStream] = useState(null); // State for video stream
-    
+    const [selectedImage, setSelectedImage] = useState(null);
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
-    
+
         reader.onload = (event) => {
             setUploadedImage(event.target.result);
             stopWebcam();
         };
-    
+
         reader.readAsDataURL(file);
     };
-    
+
     const startWebcam = () => {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
@@ -373,14 +532,14 @@ export default function Try() {
                 console.error("Error accessing webcam: ", err);
             });
     };
-    
+
     const stopWebcam = () => {
         if (videoStream) {
             videoStream.getTracks().forEach(track => track.stop());
             setVideoStream(null);
         }
     };
-    
+
     const captureImage = () => {
         const canvas = document.createElement('canvas');
         const video = videoRef.current;
@@ -391,8 +550,8 @@ export default function Try() {
         setUploadedImage(dataUrl);
         stopWebcam();
     };
-    
-    
+
+
 
     useEffect(() => {
         if (uploadedImage && step === 2) {
@@ -527,6 +686,20 @@ export default function Try() {
         setStep(nextStep);
     };
 
+    const ColorPalette = () => {
+        const [selectedColors, setSelectedColors] = useState(new Set());
+
+        const handleColorClick = (colorId) => {
+            const updatedSelection = new Set(selectedColors);
+            if (selectedColors.has(colorId)) {
+                updatedSelection.delete(colorId);
+            } else {
+                updatedSelection.add(colorId);
+            }
+            setSelectedColors(updatedSelection);
+        };
+    };
+
     // Mock data
     const clothingDatabase = [
         { name: "Green Dress", colors: ["#2A6777"], imageUrl: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSxD2IJuQ9W-lRJyDxuCNqf8qPEHJvBSS43bmw-7XHch3THDYL2xNObJPLsPRsFXX-PdAYUlz60PhgsP5FqYVvZyyt0H2QyIWcz1QbF-sucDlbAFhImMOBpDA&usqp=CAc" },
@@ -541,60 +714,60 @@ export default function Try() {
             <div className="container">
                 <style>{css}</style>
                 <div id="step-container">
-                {step === 1 && (
-                    <>
-                        <h2>Get Started with Analyzing Colors</h2>
-                        <p>Capture or upload a photo to start analyzing colors.</p>
-                        <div className="video-container">
-                            {uploadedImage ? (
-                                <img src={uploadedImage} alt="Uploaded" />
-                            ) : (
-                                <video ref={videoRef}></video>
-                            )}
-                            <div className="file-input-container">
-                                <button className="capture-button" onClick={captureImage}>
-                                    Capture Photo
-                                </button>
-                                <label className="custom-file-upload">
-                                    <input
-                                        type="file"
-                                        className="file-input"
-                                        accept="image/*"
-                                        onChange={handleFileChange}
-                                    />
-                                    Browse
-                                </label>
+                    {step === 1 && (
+                        <>
+                            <h2>Get Started with Color Analysis</h2>
+                            <p>Capture or upload a photo to start analyzing colors.</p>
+                            <div className="video-container">
+                                {uploadedImage ? (
+                                    <img src={uploadedImage} alt="Uploaded" />
+                                ) : (
+                                    <video ref={videoRef}></video>
+                                )}
+                                <div className="file-input-container">
+                                    <button className="capture-button" onClick={captureImage}>
+                                        Capture Photo
+                                    </button>
+                                    <label className="custom-file-upload">
+                                        <input
+                                            type="file"
+                                            className="file-input"
+                                            accept="image/*"
+                                            onChange={handleFileChange}
+                                        />
+                                        Browse
+                                    </label>
+                                </div>
+                            </div>
+                            <button className="getStarted" onClick={() => handleNavigation(2)}>
+                                Get Started
+                            </button>
+                        </>
+                    )}
+                    {step === 2 && (
+                        <div id="step2" className="step-container">
+                            <h2>Select your natural colors</h2>
+                            <p>Select your hair, skin, and eye color using the color picker tool. Choose the most prominent tones for your hair and skin. For the eyes, choose the color in the middle of the iris.</p>
+                            <div className="canvas-and-colors">
+                                <canvas id="canvas" onClick={handleCanvasClick}></canvas>
+                                <div className="colors-container">
+                                    <div className="color-box" id="skinColor">
+                                        <span className="color-label">Skin</span>
+                                    </div>
+                                    <div className="color-box" id="hairColor">
+                                        <span className="color-label">Hair</span>
+                                    </div>
+                                    <div className="color-box" id="eyeColor">
+                                        <span className="color-label">Eye</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="navigation">
+                                <button id="toStep1" className="previous" onClick={() => setStep(1)}>Previous</button>
+                                <button id="toStep3" className="next" disabled={selectedColors.length < 3} onClick={() => setStep(3)}>Next</button>
                             </div>
                         </div>
-                        <button className="getStarted" onClick={() => handleNavigation(2)}>
-                            Get Started
-                        </button>
-                    </>
-                )}
-{step === 2 && (
-    <div id="step2" className="step-container">
-        <h2>Select your natural colors</h2>
-        <p>Select your hair, skin, and eye color using the color picker tool. Choose the most prominent tones for your hair and skin. For the eyes, choose the color in the middle of the iris.</p>
-        <div className="canvas-and-colors">
-            <canvas id="canvas" onClick={handleCanvasClick}></canvas>
-            <div className="colors-container">
-                <div className="color-box" id="skinColor">
-                    <span className="color-label">Skin</span>
-                </div>
-                <div className="color-box" id="hairColor">
-                    <span className="color-label">Hair</span>
-                </div>
-                <div className="color-box" id="eyeColor">
-                    <span className="color-label">Eye</span>
-                </div>
-            </div>
-        </div>
-        <div className="navigation">
-            <button id="toStep1" className="previous" onClick={() => setStep(1)}>Previous</button>
-            <button id="toStep3" className="next" disabled={selectedColors.length < 3} onClick={() => setStep(3)}>Next</button>
-        </div>
-    </div>
-)}
+                    )}
 
 
 
@@ -602,39 +775,65 @@ export default function Try() {
 
 
 
-    
                     {step === 3 && (
                         <div id="step3">
                             <h2>Your personal palette</h2>
                             <div ref={complementaryColorsRef} id="complementaryColors"></div>
-                            <p>The <b>Deep Winter palette</b> contains dark and vivid colors. Black will be a staple of your wardrobe, as will navy and charcoal—traditional “corporate” shades make it easy to build a great core wardrobe. Dress looks up with a shot of hot pink or Chinese blue.
-
-</p>
-                            <div className="colors-container">
-                                <div id="comp-color1" className="color-box"></div>
-                                <div id="comp-color2" className="color-box"></div>
-                                <div id="comp-color3" className="color-box"></div>
+                            <p>The <b>Deep Winter palette</b> contains dark and vivid colors. Black will be a staple of your wardrobe, as will navy and charcoal—traditional “corporate” shades make it easy to build a great core wardrobe. Dress looks up with a shot of hot pink or Chinese blue.</p>
+                             <p><b>Please select up to three colors you prefer to proceed with your color choices</b></p>
+                            <h3>Best Colors</h3>
+                            <div className="colors-containers">
+                                {[...Array(20).keys()].map(index => (
+                                    <div
+                                        key={`comp-color${index + 1}`}
+                                        id={`comp-color${index + 1}`}
+                                        className="color-boxes"
+                                        onClick={(e) => {
+                                            e.currentTarget.classList.toggle('selected');
+                                        }}
+                                    ></div>
+                                ))}
                             </div>
+
+                            <h3>Colors to avoid</h3>
+                            <div className="colors-containers">
+                                <div id="comp-color21" className="color-boxes"></div>
+                                <div id="comp-color22" className="color-boxes"></div>
+                                <div id="comp-color23" className="color-boxes"></div>
+                                <div id="comp-color24" className="color-boxes"></div>
+                            </div>
+
+
                             <div className="navigation">
                                 <button id="toStep2" className="previous" onClick={() => setStep(2)}>Previous</button>
                                 <button id="toStep4" className="next" onClick={() => setStep(4)}>Next</button>
                             </div>
                         </div>
                     )}
-    
-    {step === 4 && (
-                        <div id="step4">
-                            <div id="clothingItems">
-                                <img src="https://peachmode.com/cdn/shop/files/1_ANJU-MEMORIES-2926.jpg?v=1689743346" width="230px" alt="img1" />
-                                <img src="https://images.meesho.com/images/products/370177303/ryau5_512.webp" alt="img2" width="180px" />
-                                <img src="https://assets.ajio.com/medias/sys_master/root/20240314/V1z9/65f2a9af05ac7d77bbb2445c/-473Wx593H-466497025-magenta-MODEL.jpg" alt="img3" width="180px" />
-                            </div>
-                            <div className="navigation">
-                                <button id="toStep3Back" className="previous" onClick={() => setStep(3)}>Previous</button>
-                            </div>
-                        </div>
-                    )}
+
+
+
+{step === 4 && (
+    <div id="step4">
+        <h2 style={{marginBottom:'-30px'}}>A wardrobe that suits your natural color palette</h2>
+        <div id="clothingItems" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridColumnGap: '15px', gridRowGap: '15px' }}>
+            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/14954338/2021/11/16/d7444b7b-daef-4ab9-bb87-6add0032adfa1637046244433-Roadster-Women-Jeans-3581637046244134-1.jpg" style={{marginLeft:'250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img1" />
+            <img src="https://assets.myntassets.com/dpr_1.5,q_60,w_270,c_limit,fl_progressive/assets/images/25792610/2023/11/23/3fd59ed1-b310-4760-96ea-0eafd69579f71700760808608AntheaaPinkPrintBellSleeveChiffonFitFlareDress1.jpg" style={{ width: '100%', height: '250px', objectFit: 'contain' }} alt="img2" />
+            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/22302916/2023/9/20/36f97b8b-3c64-452a-9094-91ec0f9af56b1695211618012MANGOWomenBeltedA-LineMidiDress1.jpg" style={{marginLeft:'-250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img3" />
+            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/24212924/2023/7/26/b217c7af-1bc7-4cae-a016-03782721be631690376443137AthenaLightblueDenimjacket1.jpg" style={{marginLeft:'250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img4" />
+            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/24155188/2024/5/8/5b31e490-797a-4861-a509-89803b41ef451715159683198TokyoTalkiesPinkShoulderStrapSmockingDetailedCropFittedTop1.jpg" style={{ width: '100%', height: '250px', objectFit: 'contain' }} alt="img5" />
+            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/27234096/2024/1/30/45928840-4422-44a3-87b7-49eb922cc3341706609506508AthenaDenimMidiDress1.jpg" style={{marginLeft:'-250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img6" />
+        </div>
+        <div className="navigation">
+            <button id="toStep3Back" className="previous" onClick={() => setStep(3)}>Previous</button>
+        </div>
+    </div>
+)}
+
+
+
                 </div>
+                
             </div>
         </div>
     );
