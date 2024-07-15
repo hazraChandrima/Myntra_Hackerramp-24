@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
+import Webcam from 'react-webcam';
 
 const css = `
 .bg {
@@ -36,28 +39,45 @@ p {
     margin-bottom: 20px;
 }
 
-.image-upload-container {
+.video-container {
     position: relative;
-    margin-bottom: 20px;
+    width: 100%;
+    max-width: 320px; /* Adjust as needed */
+    margin: 0 auto;
 }
 
-.hidden {
-    display: none;
+.video-container video {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-.upload-label {
+.capture-button, .browse-button {
+    background-color: #ff007f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.capture-button:hover, .browse-button:hover {
+    background-color: #cc0066;
+}
+
+.file-input-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-.upload-label img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
+.file-input {
+    display: none;
 }
 
-.upload-label button {
+.custom-file-upload {
     background-color: #ff007f;
     color: white;
     border: none;
@@ -67,7 +87,7 @@ p {
     transition: background-color 0.3s;
 }
 
-.upload-label button:hover {
+.custom-file-upload:hover {
     background-color: #cc0066;
 }
 
@@ -108,8 +128,8 @@ p {
     border: 1px solid black;
     margin-bottom: 10px;
     width: 100%;
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 500px;
+    max-height: 500px;
 }
 
 #canvas:hover {
@@ -152,6 +172,168 @@ background-color:#04395E;
 #comp-color3{
 background-color:#A40E4C;
 }
+.video-container {
+    width: 100%;
+    max-width: 320px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+.video-container video {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #000; /* Optional: Add a background color for video container */
+}
+
+.capture-button {
+    background-color: #ff007f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.capture-button:hover {
+    background-color: #cc0066;
+}
+
+.getStarted {
+    background-color: #3d3dff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.getStarted:hover {
+    background-color: #3333cc;
+}
+
+.file-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Adjust spacing as needed */
+}
+
+.capture-button, .custom-file-upload {
+    background-color: #ff007f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px; /* Adjust spacing between buttons */
+}
+
+.capture-button:hover, .custom-file-upload:hover {
+    background-color: #cc0066;
+}
+
+.custom-file-upload {
+    background-color: #ff007f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* Adjust the margin-top as needed */
+}
+
+.custom-file-upload:hover {
+    background-color: #cc0066;
+}
+#canvas {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    margin-left:200px;
+}
+
+#canvas:hover {
+    cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNS4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjQgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTI1NiAwYzE3LjcgMCAzMiAxNC4zIDMyIDMyVjQyLjRjOTMuNyAxMy45IDE2Ny43IDg4IDE4MS42IDE4MS42SDQ4MGMxNy43IDAgMzIgMTQuMyAzMiAzMnMtMTQuMyAzMi0zMiAzMkg0NjkuNmMtMTMuOSA5My43LTg4IDE2Ny43LTE4MS42IDE4MS42VjQ4MGMwIDE3LjctMTQuMyAzMi0zMiAzMnMtMzItMTQuMy0zMi0zMlY0NjkuNkMxMzAuMyA0NTUuNyA1Ni4zIDM4MS43IDQyLjQgMjg4SDMyYy0xNy43IDAtMzItMTQuMy0zMi0zMnMxNC4zLTMyIDMyLTMySDQyLjRDNTYuMyAxMzAuMyAxMzAuMyA1Ni4zIDIyNCA0Mi40VjMyYzAtMTcuNyAxNC4zLTMyIDMyLTMyek0xMDcuNCAyODhjMTIuNSA1OC4zIDU4LjQgMTA0LjEgMTE2LjYgMTE2LjZWMzg0YzAtMTcuNyAxNC4zLTMyIDMyLTMyczMyIDE0LjMgMzIgMzJ2MjAuNmM1OC4zLTEyLjUgMTA0LjEtNTguNCAxMTYuNi0xMTYuNkgzODRjLTE3LjcgMC0zMi0xNC4zLTMyLTMyczE0LjMtMzIgMzItMzJoMjAuNkMzOTIuMSAxNjUuNyAzNDYuMyAxMTkuOSAyODggMTA3LjRWMTI4YzAgMTcuNy0xNC4zIDMyLTMyIDMycy0zMi0xNC4zLTMyLTMyVjEwNy40QzE2NS43IDExOS45IDExOS45IDE2NS43IDEwNy40IDIyNEgxMjhjMTcuNyAwIDMyIDE0LjMgMzIgMzJzLTE0LjMgMzItMzIgMzJIMTA3LjR6TTI1NiAyMjRhMzIgMzIgMCAxIDEgMCA2NCAzMiAzMiAwIDEgMSAwLTY0eiIvPjwvc3ZnPg== '), auto;
+}
+
+#canvas:focus {
+    outline: none;
+}
+
+.step-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.canvas-and-colors {
+    display: flex;
+    justify-content: space-between;
+    gap:150px;
+    align-items: flex-start;
+    margin-top: 20px; /* Adjust margin as needed */
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+#canvas {
+    border: 1px solid black;
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    margit-right:300px;
+}
+
+.colors-container {
+    display: flex;
+    gap:40px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.color-box {
+    width: 60px; /* Adjust width as per your design */
+    height: 60px; /* Adjust height as per your design */
+    border: 1px solid #ccc; /* Example border styling */
+    margin-bottom: 10px;
+    border-radius:20px /* Adjust margin-bottom between boxes */
+    box-sizing: border-box; /* Include border in width/height calculations */
+    padding: 5px; /* Add padding inside the box */
+    text-align: center; /* Center text horizontally */
+    position: relative;
+}
+
+.color-label {
+    position: absolute;
+    top: 60px; /* Position label above the box */
+    left: 50%; /* Center the label horizontally */
+    transform: translateX(-50%);
+    background-color: #fff; /* Example background color for contrast */
+    padding: 5px; /* Adjust padding as needed */
+     /* Example border styling */
+    width: fit-content; /* Adjust width based on content */
+}
+
+.navigation {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+.previous, .next {
+    margin: 0 10px; /* Adjust margin between buttons */
+}
+
+
+
+
 
 
 `;
@@ -162,18 +344,55 @@ export default function Try() {
     const [uploadedImage, setUploadedImage] = useState(null);
     const [selectedColors, setSelectedColors] = useState([]);
     const [step, setStep] = useState(1);
+    const [webcamActive, setWebcamActive] = useState(true); // State for webcam status
     const complementaryColorsRef = useRef(null); // Ref for complementary colors container
+    const videoRef = useRef(null); // Ref for video element
+    const [videoStream, setVideoStream] = useState(null); // State for video stream
+    
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
-
+    
         reader.onload = (event) => {
             setUploadedImage(event.target.result);
+            stopWebcam();
         };
-
+    
         reader.readAsDataURL(file);
     };
+    
+    const startWebcam = () => {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                setVideoStream(stream);
+                videoRef.current.srcObject = stream;
+                videoRef.current.play();
+            })
+            .catch(err => {
+                console.error("Error accessing webcam: ", err);
+            });
+    };
+    
+    const stopWebcam = () => {
+        if (videoStream) {
+            videoStream.getTracks().forEach(track => track.stop());
+            setVideoStream(null);
+        }
+    };
+    
+    const captureImage = () => {
+        const canvas = document.createElement('canvas');
+        const video = videoRef.current;
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/png');
+        setUploadedImage(dataUrl);
+        stopWebcam();
+    };
+    
+    
 
     useEffect(() => {
         if (uploadedImage && step === 2) {
@@ -194,6 +413,15 @@ export default function Try() {
             img.src = uploadedImage;
         }
     }, [uploadedImage, step]);
+
+    useEffect(() => {
+        if (step === 1) {
+            startWebcam();
+        }
+        return () => {
+            stopWebcam();
+        };
+    }, [step]);
 
     const handleCanvasClick = (e) => {
         if (selectedColors.length < 3) {
@@ -239,7 +467,6 @@ export default function Try() {
         console.log(`Complementary color for ${hex}: ${complementaryHex}`);
         return complementaryHex;
     };
-
     const displayComplementaryColors = (colors) => {
         if (complementaryColorsRef.current) {
             const complementaryContainer = complementaryColorsRef.current;
@@ -270,7 +497,6 @@ export default function Try() {
 
                 console.log(`Selected Color: ${color}, Complementary Color: ${complementaryColorHex}`);
             });
-
             displayClothingItems(matchedItems);
         }
     };
@@ -287,7 +513,6 @@ export default function Try() {
             Math.abs(rgb1[1] - rgb2[1]) < tolerance &&
             Math.abs(rgb1[2] - rgb2[2]) < tolerance;
     };
-
     const displayClothingItems = (items) => {
         const clothingContainer = document.getElementById('clothingItems');
         clothingContainer.innerHTML = '<h2>Recommended Clothing Items</h2>';
@@ -297,6 +522,9 @@ export default function Try() {
             itemElement.innerHTML = `<img src="${item.imageUrl}" alt="${item.name}"><p>${item.name}</p>`;
             clothingContainer.appendChild(itemElement);
         });
+    };
+    const handleNavigation = (nextStep) => {
+        setStep(nextStep);
     };
 
     // Mock data
@@ -313,42 +541,75 @@ export default function Try() {
             <div className="container">
                 <style>{css}</style>
                 <div id="step-container">
-                    {step === 1 && (
-                        <div id="step1">
-                            <h2>Upload an image of yours</h2>
-                            <p>Click "Browse" to select one of your saved images. Drag the dropping circle to the center of your face - be sure to include at least part of your hair.</p>
-                            <div className="image-upload-container">
-                                <input type="file" id="upload" className="hidden" onChange={handleFileChange} />
-                                <label htmlFor="upload" className="upload-label">
-                                    <img id="uploadedImage" src={uploadedImage} alt="Upload Image" />
-                                    <button>Browse</button>
+                {step === 1 && (
+                    <>
+                        <h2>Get Started with Analyzing Colors</h2>
+                        <p>Capture or upload a photo to start analyzing colors.</p>
+                        <div className="video-container">
+                            {uploadedImage ? (
+                                <img src={uploadedImage} alt="Uploaded" />
+                            ) : (
+                                <video ref={videoRef}></video>
+                            )}
+                            <div className="file-input-container">
+                                <button className="capture-button" onClick={captureImage}>
+                                    Capture Photo
+                                </button>
+                                <label className="custom-file-upload">
+                                    <input
+                                        type="file"
+                                        className="file-input"
+                                        accept="image/*"
+                                        onChange={handleFileChange}
+                                    />
+                                    Browse
                                 </label>
                             </div>
-                            <div className="navigation">
-                                <button id="getStarted" className="getStarted" onClick={() => setStep(2)}>Get Started</button>
-                            </div>
                         </div>
-                    )}
-                    {step === 2 && (
-                        <div id="step2">
-                            <h2>Select your natural colors</h2>
-                            <p>Select your hair, skin, and eye color using the color picker tool. Choose the most prominent tones for your hair and skin. For the eyes, choose the color in the middle of the iris.</p>
-                            <canvas id="canvas" onClick={handleCanvasClick}></canvas>
-                            <div className="colors-container">
-                                <div id="skinColor" className="color-box"></div>
-                                <div id="hairColor" className="color-box"></div>
-                                <div id="eyeColor" className="color-box"></div>
-                            </div>
-                            <div className="navigation">
-                                <button id="toStep1" className="previous" onClick={() => setStep(1)}>Previous</button>
-                                <button id="toStep3" className="next" disabled={selectedColors.length < 3} onClick={() => setStep(3)}>Next</button>
-                            </div>
-                        </div>
-                    )}
+                        <button className="getStarted" onClick={() => handleNavigation(2)}>
+                            Get Started
+                        </button>
+                    </>
+                )}
+{step === 2 && (
+    <div id="step2" className="step-container">
+        <h2>Select your natural colors</h2>
+        <p>Select your hair, skin, and eye color using the color picker tool. Choose the most prominent tones for your hair and skin. For the eyes, choose the color in the middle of the iris.</p>
+        <div className="canvas-and-colors">
+            <canvas id="canvas" onClick={handleCanvasClick}></canvas>
+            <div className="colors-container">
+                <div className="color-box" id="skinColor">
+                    <span className="color-label">Skin</span>
+                </div>
+                <div className="color-box" id="hairColor">
+                    <span className="color-label">Hair</span>
+                </div>
+                <div className="color-box" id="eyeColor">
+                    <span className="color-label">Eye</span>
+                </div>
+            </div>
+        </div>
+        <div className="navigation">
+            <button id="toStep1" className="previous" onClick={() => setStep(1)}>Previous</button>
+            <button id="toStep3" className="next" disabled={selectedColors.length < 3} onClick={() => setStep(3)}>Next</button>
+        </div>
+    </div>
+)}
+
+
+
+
+
+
+
+    
                     {step === 3 && (
                         <div id="step3">
+                            <h2>Your personal palette</h2>
                             <div ref={complementaryColorsRef} id="complementaryColors"></div>
-                            <p>The following are your complementary colors:</p>
+                            <p>The <b>Deep Winter palette</b> contains dark and vivid colors. Black will be a staple of your wardrobe, as will navy and charcoal—traditional “corporate” shades make it easy to build a great core wardrobe. Dress looks up with a shot of hot pink or Chinese blue.
+
+</p>
                             <div className="colors-container">
                                 <div id="comp-color1" className="color-box"></div>
                                 <div id="comp-color2" className="color-box"></div>
@@ -360,7 +621,8 @@ export default function Try() {
                             </div>
                         </div>
                     )}
-                    {step === 4 && (
+    
+    {step === 4 && (
                         <div id="step4">
                             <div id="clothingItems">
                                 <img src="https://peachmode.com/cdn/shop/files/1_ANJU-MEMORIES-2926.jpg?v=1689743346" width="230px" alt="img1" />

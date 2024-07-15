@@ -37,6 +37,7 @@
     "react-scripts": "5.0.0",
     "react-spring": "^9.4.3",
     "react-touch-carousel": "^0.10.2",
+    "react-webcam": "^7.2.0",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
@@ -69,6 +70,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-webcam": "^3.0.0",
     "autoprefixer": "^10.4.2",
     "html-loader": "^5.0.0",
     "path-browserify": "^1.0.1",
