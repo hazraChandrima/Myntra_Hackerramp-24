@@ -93,7 +93,7 @@ function App() {
           </>} />
           <Route path="/CreateLookbook" element={<CreateLookbook/>}/>
           <Route path="/uploadLookbook" element={<UploadLookbook />} />
-          <Route path="/lookbooks" element={<Lookbooks />} />
+          <Route path="/Lookbooks" element={<Lookbooks />} />
           <Route path="/ai_wardrobe" element={<AIWardrobe/>}/>
       </Routes>
       <Footer />

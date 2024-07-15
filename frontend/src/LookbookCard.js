@@ -1,5 +1,5 @@
 import React from 'react';
-import './Lookbooks.css'; // Ensure you import the correct CSS file
+import './Lookbooks.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocket } from '@fortawesome/free-solid-svg-icons';
 
@@ -42,7 +42,7 @@ const LookbookCard = ({ tags }) => {
       </div>
       <div className="tags">
         {tags.map((tag, index) => (
-          <span key={index} className="tag">#{tag}</span>
+          <span key={index} className="font1 tag">#{tag}</span>
         ))}
       </div>
     </div>
