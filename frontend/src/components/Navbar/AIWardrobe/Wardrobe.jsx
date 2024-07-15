@@ -55,10 +55,10 @@ const css = `
 
 .view-button {
     padding: 5px 15px;
-    background-color: #ff2459;
+    background-color: #fa688b;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 5px;
@@ -151,7 +151,7 @@ const AIWardrobe = () => {
         const filteredClothes = dummyClothesData.filter(item =>
             item.name.toLowerCase().includes(keyword.toLowerCase())
         );
-        const recommendations = filteredClothes.slice(0, 4); // Limit to 4 recommendations
+        const recommendations = filteredClothes.slice(0, 4); 
         setClothes(recommendations);
     };
 
@@ -167,7 +167,7 @@ const AIWardrobe = () => {
                                     <img src={image} alt={`${item.name} ${idx + 1}`} className="clothes-image" height={"200px"} width={"200px"} />
                                     <div className="clothes-info">
                                         <p className="clothes-name">{`${item.name} ${idx + 1}`}</p>
-                                        <button className="view-button">View</button>
+                                        <button className="view-button font1">View</button>
                                     </div>
                                 </div>
                             ))
