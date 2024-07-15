@@ -1,26 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Lookbooks.css'; // Import your Lookbooks component CSS here
 import LookbookCard from './LookbookCard'; // Import LookbookCard component
 
 const Lookbooks = () => {
   // Sample data for lookbooks
-  const lookbooks = [
-    { id: 1, tags: ['FormalAttire', 'ClassyOutfit'] },
-    { id: 2, tags: ['CasualWear', 'StreetStyle'] },
-    { id: 3, tags: ['FormalAttire', 'BusinessCasual'] },
-    { id: 4, tags: ['SportyLook', 'Athleisure'] },
-    { id: 5, tags: ['FormalAttire', 'ElegantStyle'] },
-    { id: 6, tags: ['FormalAttire', 'ChicFashion'] },
+  const initialLookbooks = [
+    { id: 1, tags: ['FormalAttire', 'ClassyOutfit'], boosts: 1500 },
+    { id: 2, tags: ['CasualWear', 'StreetStyle'], boosts: 1200 },
+    { id: 3, tags: ['FormalAttire', 'BusinessCasual'], boosts: 1800 },
+    { id: 4, tags: ['SportyLook', 'Athleisure'], boosts: 1000 },
+    { id: 5, tags: ['FormalAttire', 'ElegantStyle'], boosts: 1600 },
+    { id: 6, tags: ['FormalAttire', 'ChicFashion'], boosts: 1400 },
+    { id: 7, tags: ['BohoStyle', 'FestivalFashion'], boosts: 900 },
+    { id: 8, tags: ['WinterWear', 'CozyOutfit'], boosts: 1100 },
+    { id: 9, tags: ['SummerStyle', 'BeachWear'], boosts: 1300 },
+    { id: 10, tags: ['VintageLook', 'RetroFashion'], boosts: 1700 },
   ];
+
+  const [lookbooks, setLookbooks] = useState(initialLookbooks);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Function to handle search input change
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Function to filter lookbooks based on search term
+  const filteredLookbooks = lookbooks.filter((lookbook) =>
+    lookbook.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  // Function to sort filtered lookbooks by boosts in descending order
+  filteredLookbooks.sort((a, b) => b.boosts - a.boosts);
 
   return (
     <div className="lookbooks-container">
       <div className="search-bar">
-        <input type="text" placeholder="Search by tag..." className="search-input" />
+        <div className="search-input">
+          <input
+            type="text"
+            placeholder="Search by tag..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          <button>Search</button>
+        </div>
+        <div className="search-tags">
+          <span style={{ color: 'black' }}>Search with specific tags:</span>
+          <span className="tag">#FormalAttire</span>
+          <span className="tag">#CasualWear</span>
+          <span className="tag">#SportyLook</span>
+        </div>
       </div>
       <div className="lookbooks-list">
-        {lookbooks.map((lookbook) => (
-          <LookbookCard key={lookbook.id} tags={lookbook.tags} />
+        {filteredLookbooks.map((lookbook) => (
+          <LookbookCard key={lookbook.id} tags={lookbook.tags} boosts={lookbook.boosts} />
         ))}
       </div>
     </div>
@@ -28,6 +62,10 @@ const Lookbooks = () => {
 };
 
 export default Lookbooks;
+
+
+
+
 
 
 
