@@ -1,17 +1,16 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import './UploadLookbook.css';
 
 const UploadLookbook = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { state } = location;
   const { name, tags, images, boosts, time } = state || {};
 
   const handleUploadClick = () => {
-    navigate('/lookbooks');
+    alert("Your lookbook has been uploaded successfully!")
   };
 
   return (
