@@ -9,18 +9,23 @@ const css = `
     margin: 20px;
 }
 
-.header {
+h3 {
     text-align: center;
-    font-size: 24px;
-    margin-top: 20px;
+    font-size: 25px;
+    margin-top: 10px;
 }
+    h4{
+    font-size: 18px;
+    margin-top:8px;
+    margin-bottom:20px;
+    }
 `;
 
 const dummyClothesData = [
     {
         name: 'T-Shirt',
         images: [
-            'https://static.fibre2fashion.com/MemberResources/LeadResources/1/2018/9/Seller/18154533/Images/18154533_0_ladies-stylish-t-shirt.jpg'
+            'https://static.aceomni.cmsaceturtle.com/prod%2Fproduct-image%2Faceomni%2FWrangler%2FMyntra%2FWWTS001119%2FWWTS001119_1.jpg'
         ]
     },
     {
@@ -32,7 +37,7 @@ const dummyClothesData = [
     {
         name: 'Jacket',
         images: [
-            'https://img.etimg.com/thumb/width-1200,height-900,imgsize-71512,resizemode-75,msid-96550124/top-trending-products/lifestyle/best-biker-jackets-for-women-in-india.jpg'
+            "https://img.etimg.com/photo/msid-96169788,imgsize-48504/AtoZCreationWomen'sSolidJacket.jpg"
         ]
     },
     {
@@ -50,13 +55,13 @@ const dummyClothesData = [
     {
         name: 'Sweater',
         images: [
-            'https://m.media-amazon.com/images/I/71PIJ0FXJ3L._AC_UY1100_.jpg'
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBdagBJXVsdIaEEwgM335rd67QrUuGkk71Dg&s'
         ]
     },
     {
         name: 'Shorts',
         images: [
-            'https://i.pinimg.com/564x/1f/0b/86/1f0b86bf31289b40c46ced41c02066a8.jpg'
+            'https://assets.ajio.com/medias/sys_master/root/20230628/qNhw/649b4ebeeebac147fc0f20a4/-473Wx593H-465607946-white-MODEL.jpg'
         ]
     },
 ];
@@ -75,7 +80,10 @@ const AIWishlist = () => {
     return (
         <div className="page-container">
             <style>{css}</style>
-            <h2 className="header">Clothes Collection</h2>
+            <div className='container'>
+            <h3 className='header font1 font-light'>Trendy collections, handpicked just for you.</h3>
+            <h4 className='header font1'>Based on your search history</h4>
+            </div>
             {clothes.map((item, index) => (
                 <ImageCard
                     key={index}

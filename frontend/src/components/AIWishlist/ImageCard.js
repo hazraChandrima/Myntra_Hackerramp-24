@@ -41,13 +41,14 @@ const css = `
 
 .button {
     flex: 1;
-    padding: 8px 20px;
+    padding: 8px 15px;
     color: white;
+    font-size:16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    margin: 5px 5px 5px 0;
+    margin: 5px 6px 5px 6px;
 }
 
 .button-add {
@@ -55,7 +56,7 @@ const css = `
 }
 
 .button-add:hover {
-    background-color: #e01e50;
+    background-color: #e35e7e;
     transform: scale(1.05);
 }
 
@@ -86,8 +87,8 @@ const ImageCard = ({ item, onAdd, onRemove }) => {
             <style>{css}</style>
             <img src={item.images[0]} alt={item.name} className="image" />
             <div className="button-container">
-                <button className="button button-add" onClick={() => onAdd(item)}>View</button>
-                <button className="button button-remove" onClick={handleRemove}>Remove</button>
+                <button className="button button-add font1" onClick={() => onAdd(item)}>View</button>
+                <button className="button button-remove font1" onClick={handleRemove}>Remove</button>
             </div>
         </div>
     );
