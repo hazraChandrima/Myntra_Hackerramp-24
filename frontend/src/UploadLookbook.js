@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -8,13 +8,29 @@ const UploadLookbook = () => {
   const location = useLocation();
   const { state } = location;
   const { name, tags, images, boosts, time } = state || {};
+  
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const handleUploadClick = () => {
-    alert("Your lookbook has been uploaded successfully!")
+    // Logic for handling upload (possibly a POST request, etc.)
+    // For demonstration, I'm using a simple state update for success message
+    setUploadSuccess(true);
+  };
+
+  const handleOkClick = () => {
+    setUploadSuccess(false); // Close the popup
   };
 
   return (
     <div className="upload-lookbook-page">
+      {uploadSuccess && (
+        <div className="upload-success-modal">
+          <p>Your Lookbook has been uploaded successfully!</p>
+          <button className="ok-button" onClick={handleOkClick}>
+            OK
+          </button>
+        </div>
+      )}
       <h2 className="lookbook-title">{name}</h2>
       <div className="containerLB">
         <div className="header">
@@ -66,7 +82,3 @@ const UploadLookbook = () => {
 };
 
 export default UploadLookbook;
-
-
-
-

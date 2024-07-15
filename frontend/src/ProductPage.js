@@ -5,11 +5,18 @@ import {  faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import photo1 from './photo1.png';
 import photo2 from './photo2.png';
 
+const css=`
+
+.main-image{
+    object-fit:cover;
+}
+`
+
 const ProductPage = () => {
 
   return (
     <div className="product-page">
-
+      <style>{css}</style>
       <main className="main-content">
         <div className="breadcrumb" style={{marginRight:'1100px'}}>
           <a href="#">Home</a> / <a href="#">Clothing</a> / <a href="#">Women Clothing</a> / <a href="#">Shirts</a> / DL Woman Shirts
