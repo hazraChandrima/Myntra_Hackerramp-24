@@ -127,7 +127,7 @@ const Navbar = ({user}) => {
               </li>
               <li className='w-max flex justify-center items-center font1 font-semibold capitalize no-underline text-sm border-4 border-transparent ' >
 
-                <Link to='/my_wishlist'><h1 className='px-3 text-xs text-center relative'> <span className='text-lg absolute -top-5 left-1/3'><BsHeart /></span>Wishlist</h1></Link>
+                <Link to='/ai_wishlist'><h1 className='px-3 text-xs text-center relative'> <span className='text-lg absolute -top-5 left-1/3'><BsHeart /></span>AI Wishlist</h1></Link>
               </li>
               <li className='w-max flex justify-center items-center font1 font-semibold capitalize no-underline text-sm border-4 border-transparent ' >
 

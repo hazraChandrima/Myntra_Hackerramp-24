@@ -21,7 +21,7 @@ import Ppage from "./components/Productpage/Ppage";
 import MPpage from "./components/Productpage/MPpage";
 import Footer from "./components/Footer/Footer";
 import Coupon from "./components/Coupon/Coupon";
-import Wishlist from "./components/Wishlist/Wishlist";
+import AIWishlist from "./components/AIWishlist/AIWishlist";
 import Bag from './components/Bag/Bag';
 import AIWardrobe from './components/Navbar/AIWardrobe/Wardrobe.jsx';
 import Address from "./components/Bag/Address";
@@ -82,7 +82,7 @@ function App() {
         {!loading && (isAuthentication ? <Route path="/dashboard" element={<Overview user={user} />} /> : <Route path="/dashboard" element={<Navigate to="/" />} />)}
         <Route path="/products" element={<Allproductpage />} />
         {window.screen.width > 1024 ? <Route path="/products/:id" element={<Ppage />} /> : <Route path="/products/:id" element={<MPpage />} />}
-        <Route path="/my_wishlist" element={<Wishlist user={isAuthentication} />} />
+        <Route path="/ai_wishlist" element={<AIWishlist/>} />
         <Route path="/bag" element={<Bag user={user} />} />
         <Route path="/address/bag" element={<Address user={user} />} />
         <Route path="/product-1" element={<>
