@@ -45,7 +45,7 @@ const Lookbooks = () => {
           />
           <button>Search</button>
         </div>
-        <div className="search-tags">
+        <div className="search-tags font1">
           <span style={{ color: 'black' }}>Search with specific tags:</span>
           <span className="tag">#FormalAttire</span>
           <span className="tag">#CasualWear</span>
