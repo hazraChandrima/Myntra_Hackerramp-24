@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './Lookbooks.css'; // Import your Lookbooks component CSS here
-import LookbookCard from './LookbookCard'; // Import LookbookCard component
+import './Lookbooks.css'; 
+import LookbookCard from './LookbookCard'; 
 
 const Lookbooks = () => {
   // Sample data for lookbooks

@@ -60,6 +60,7 @@ const Profile = ({show, CMenu, parentCallback, user}) => {
                <hr className='my-4' />
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Orders</h1>
                 <Link to="/ColorAnalysis" ><h1 className='litext list-none py-0.5  hover:font-semibold'>Color Analysis</h1></Link>
+                <Link to="/Lookbooks" ><h1 className='litext list-none py-0.5  hover:font-semibold'>LookBooks</h1></Link>
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Wishlist</h1>
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Gift Cards</h1>
                 <h1 className='litext list-none py-0.5  hover:font-semibold'>Contact Us</h1>
