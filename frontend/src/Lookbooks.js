@@ -3,7 +3,7 @@ import './Lookbooks.css';
 import LookbookCard from './LookbookCard'; 
 
 const Lookbooks = () => {
-  // Sample data for lookbooks
+
   const initialLookbooks = [
     { id: 1, tags: ['FormalAttire', 'ClassyOutfit'], boosts: 1500 },
     { id: 2, tags: ['CasualWear', 'StreetStyle'], boosts: 1200 },
@@ -20,17 +20,14 @@ const Lookbooks = () => {
   const [lookbooks, setLookbooks] = useState(initialLookbooks);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Function to handle search input change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // Function to filter lookbooks based on search term
   const filteredLookbooks = lookbooks.filter((lookbook) =>
     lookbook.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  // Function to sort filtered lookbooks by boosts in descending order
   filteredLookbooks.sort((a, b) => b.boosts - a.boosts);
 
   return (

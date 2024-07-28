@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateLookbook.css';
-import image1 from './image1.png'; // Import image for box 1
-import image2 from './image2.jpg'; // Import image for box 3
-import image3 from './image3.webp'; // Import image for box 2
-import image4 from './image4.jpg'; // Import image for box 4
-import image5 from './image5.png'; // Import image for box 5
+import image1 from './image1.png'; 
+import image2 from './image2.jpg'; 
+import image3 from './image3.webp'; 
+import image4 from './image4.jpg'; 
+import image5 from './image5.png'; 
 
 const CreateLookbook = () => {
   const [tags, setTags] = useState([]);
