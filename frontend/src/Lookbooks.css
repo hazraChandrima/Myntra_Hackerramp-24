@@ -56,7 +56,6 @@
     margin-top: 20px;
   }
   
-  /* Styles for LookbookCard component */
   .lookbook-card {
     width: 100%;
     border: 1px solid #ccc;
@@ -182,7 +181,6 @@
     margin-top: 20px;
   }
   
-  /* Styles for LookbookCard component */
   .lookbook-card {
     width: 100%;
     border: 1px solid #ccc;
@@ -298,7 +296,7 @@
     background-color: #eee;
     border-radius: 5px;
     padding: 5px;
-    color: black; /* Ensure tags appear in black color */
+    color: black; 
   }
   
   .lookbooks-list {
@@ -354,10 +352,10 @@
   
   .search-tags .tag {
     background-color: #eee;
-    border: 1px solid black; /* Black border */
+    border: 1px solid black; 
     border-radius: 5px;
     padding: 5px;
-    color: black; /* Black text color */
+    color: black; 
   }
   
   .lookbooks-list {

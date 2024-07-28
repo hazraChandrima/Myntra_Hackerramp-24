@@ -4,10 +4,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Dimming effect */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* Align at the bottom */
+  align-items: flex-end; 
 }
 
 .lookbook-popup {
@@ -15,10 +15,10 @@
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
   border-radius: 10px 10px 0 0;
-  width: 50%; /* Adjust width to leave 25% gap on both sides */
+  width: 50%; 
   max-width: 600px;
   min-width: 300px;
-  margin-bottom: 20px; /* Add some margin from the bottom */
+  margin-bottom: 20px; 
 }
 
 .popup-header {
@@ -42,7 +42,7 @@
 }
 
 .popup-content {
-  text-align: left; /* Align text to the left */
+  text-align: left; 
 }
 
 .popup-content ul {
@@ -58,15 +58,15 @@
 }
 
 .item-grid-icon {
-  margin-right: 10px; /* Add space between the grid icon and text */
+  margin-right: 10px; 
 }
 
 .item-text {
-  flex: 1; /* Takes up available space */
+  flex: 1; 
 }
 
 .item-icon {
-  margin-left: 10px; /* Add space between the text and the plus icon */
+  margin-left: 10px; 
 }
 
 .popup-content hr {

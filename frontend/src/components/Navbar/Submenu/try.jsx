@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
-import Webcam from 'react-webcam';
-
-
-
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
+// import Webcam from 'react-webcam';
 
 
 
@@ -502,11 +499,11 @@ export default function Try() {
     const [uploadedImage, setUploadedImage] = useState(null);
     const [selectedColors, setSelectedColors] = useState([]);
     const [step, setStep] = useState(1);
-    const [webcamActive, setWebcamActive] = useState(true); // State for webcam status
-    const complementaryColorsRef = useRef(null); // Ref for complementary colors container
-    const videoRef = useRef(null); // Ref for video element
-    const [videoStream, setVideoStream] = useState(null); // State for video stream
-    const [selectedImage, setSelectedImage] = useState(null);
+    // const [webcamActive, setWebcamActive] = useState(true);
+    const complementaryColorsRef = useRef(null); 
+    const videoRef = useRef(null); 
+    const [videoStream, setVideoStream] = useState(null); 
+    // const [selectedImage, setSelectedImage] = useState(null);
 
 
     const handleFileChange = (e) => {
@@ -606,7 +603,9 @@ export default function Try() {
                 displayComplementaryColors([...selectedColors, hexColor]);
                 document.getElementById('toStep3').disabled = false;
             }
-        } else {
+
+        } 
+        else {
             alert("You have already selected three colors.");
         }
     };
@@ -636,15 +635,6 @@ export default function Try() {
                 const complementaryColorHex = complementaryColor(color);
                 const rgbComplementary = hexToRgb(complementaryColorHex);
 
-                // Find clothing items that match the complementary colors
-                clothingDatabase.forEach(item => {
-                    item.colors.forEach(itemColor => {
-                        const itemColorRgb = hexToRgb(itemColor);
-                        if (isColorMatch(rgbComplementary, itemColorRgb)) {
-                            matchedItems.push(item);
-                        }
-                    });
-                });
 
                 const colorRow = document.createElement('div');
                 colorRow.className = 'color-row';
@@ -666,12 +656,7 @@ export default function Try() {
         return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
     };
 
-    const isColorMatch = (rgb1, rgb2) => {
-        const tolerance = 50;
-        return Math.abs(rgb1[0] - rgb2[0]) < tolerance &&
-            Math.abs(rgb1[1] - rgb2[1]) < tolerance &&
-            Math.abs(rgb1[2] - rgb2[2]) < tolerance;
-    };
+
     const displayClothingItems = (items) => {
         const clothingContainer = document.getElementById('clothingItems');
         clothingContainer.innerHTML = '<h2>Recommended Clothing Items</h2>';
@@ -686,28 +671,7 @@ export default function Try() {
         setStep(nextStep);
     };
 
-    const ColorPalette = () => {
-        const [selectedColors, setSelectedColors] = useState(new Set());
 
-        const handleColorClick = (colorId) => {
-            const updatedSelection = new Set(selectedColors);
-            if (selectedColors.has(colorId)) {
-                updatedSelection.delete(colorId);
-            } else {
-                updatedSelection.add(colorId);
-            }
-            setSelectedColors(updatedSelection);
-        };
-    };
-
-    // Mock data
-    const clothingDatabase = [
-        { name: "Green Dress", colors: ["#2A6777"], imageUrl: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSxD2IJuQ9W-lRJyDxuCNqf8qPEHJvBSS43bmw-7XHch3THDYL2xNObJPLsPRsFXX-PdAYUlz60PhgsP5FqYVvZyyt0H2QyIWcz1QbF-sucDlbAFhImMOBpDA&usqp=CAc" },
-        { name: "Yellow Shirt", colors: ["#E2E9B0"], imageUrl: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRIlRuqAcTH7j6he-DgNTDCZLCsv7wiEykH9IspP1QHt4Qq_v0Y6W8mTGFpvr2TG5ASJ4etA4JqR2BrHq0VuRLmf8hpZ-X18UDrU2bNgpXTpgZYcbW80bh0Wg&usqp=CAc" },
-        { name: "Red Scarf", colors: ["#A40E4C"], imageUrl: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTLWysI8fgFQDJ-V70IoqitQfwXTfSdxPOd8ZjzksIS1kic1_wTCET9r3K_r8Qcs9Z1itHL_DF3Zeo4a_R63gC-IRzUItS_Jg&usqp=CAc" },
-        { name: "Blue Jeans", colors: ["#04395E"], imageUrl: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSaNiK7JMygb7ZjAHibzxaHus0u0sNseGG_JPpJmh-vgIVMT1-S8PsnyR8Q-dHkbiCZ77e4_NfTxD9uD7ovKR47NP1iIbOcP0WcEd8V5ig4GJEDbLwC1Eq4zA&usqp=CAc" },
-        { name: "Orange Hat", colors: ["#FF6F3C"], imageUrl: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRgPqI2Z8SRz6B7k6aLkAaPcKmT8NbhWTtQNIxN8o7-GiaHE-Pa4E_xLjwK682PyU&usqp=CAc" },
-    ];
 
     return (
         <div className='bg'>
@@ -771,10 +735,6 @@ export default function Try() {
 
 
 
-
-
-
-
                     {step === 3 && (
                         <div id="step3">
                             <h2>Your personal palette</h2>
@@ -829,9 +789,6 @@ export default function Try() {
         </div>
     </div>
 )}
-
-
-
                 </div>
                 
             </div>
