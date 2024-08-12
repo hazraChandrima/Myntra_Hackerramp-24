@@ -755,10 +755,10 @@ export default function Try() {
                                         <span className="color-label">Skin</span>
                                     </div>
                                     <div className="color-box" id="hairColor">
-                                        <span className="color-label">Hair</span>
+                                        <span className="color-label" >Hair</span>
                                     </div>
                                     <div className="color-box" id="eyeColor">
-                                        <span className="color-label">Eye</span>
+                                        <span className="color-label" >Eye</span>
                                     </div>
                                 </div>
                             </div>
