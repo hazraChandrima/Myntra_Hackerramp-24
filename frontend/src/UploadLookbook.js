@@ -12,13 +12,12 @@ const UploadLookbook = () => {
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const handleUploadClick = () => {
-    // Logic for handling upload (possibly a POST request, etc.)
-    // For demonstration, I'm using a simple state update for success message
+   
     setUploadSuccess(true);
   };
 
   const handleOkClick = () => {
-    setUploadSuccess(false); // Close the popup
+    setUploadSuccess(false); 
   };
 
   return (
