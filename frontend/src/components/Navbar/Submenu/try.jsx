@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 // import Webcam from 'react-webcam';
 
 
-
 const css = `
 .bg {
     font-family: Arial, sans-serif;
