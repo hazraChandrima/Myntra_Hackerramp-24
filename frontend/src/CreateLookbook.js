@@ -13,15 +13,41 @@ import image12 from './image12.png';
 import image13 from './image13.png';
 import image14 from './image14.png';
 import image15 from './image15.png';
+import shoes1 from './image31.png';
+import shoes2 from './image32.png';
+import shoes3 from './image33.png';
+import shoes4 from './image34.png';
+import shoes5 from './image35.png';
+import bag1 from './image51.png';
+import bag2 from './image52.png';
+import bag3 from './image53.png';
+import bag4 from './image54.png';
+import bag5 from './image55.png';
+import jeans1 from './image21.png';
+import jeans2 from './image22.png';
+import jeans3 from './image23.png';
+import jeans4 from './image24.png';
+import jeans5 from './image25.png';
+import accessory1 from './image41.png';
+import accessory2 from './image42.png';
+import accessory3 from './image43.png';
+import accessory4 from './image44.png';
+import accessory5 from './image45.png';
 
 const CreateLookbook = () => {
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
   const [lookbookName, setLookbookName] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [mainImage, setMainImage] = useState(image1);
-  const [selectedProduct, setSelectedProduct] = useState(null); // New state for selected product
+  const [selectedCategory, setSelectedCategory] = useState('tops'); 
+
+  // States to hold the selected items for each category
+  const [selectedTop, setSelectedTop] = useState(image1);
+  const [selectedJeans, setSelectedJeans] = useState(image2);
+  const [selectedShoes, setSelectedShoes] = useState(image3);
+  const [selectedBag, setSelectedBag] = useState(image4);
+  const [selectedAccessory, setSelectedAccessory] = useState(image5);
+
   const navigate = useNavigate();
 
   const handleTagSubmit = (e) => {
@@ -43,15 +69,15 @@ const CreateLookbook = () => {
     const lookbookData = {
       name: lookbookName,
       tags,
-      images: [mainImage, image2, image3, image4, image5],
+      images: [selectedTop, selectedJeans, selectedShoes, selectedBag, selectedAccessory],
       boosts: 0,
       time: '5 sec ago',
     };
     navigate('/uploadLookbook', { state: lookbookData });
   };
 
-  const openModal = (image) => {
-    setSelectedImage(image);
+  const openModal = (category) => {
+    setSelectedCategory(category);
     setIsModalOpen(true);
   };
 
@@ -60,23 +86,59 @@ const CreateLookbook = () => {
   };
 
   const handleProductClick = (product) => {
-    setSelectedProduct(product);
-  };
-
-  const handleCustomizeClick = () => {
-    setSelectedImage(image1);
-    setSelectedProduct(image1); // Automatically select img1
-    setIsModalOpen(true);
-  };
-
-  const handleSaveChanges = () => {
-    if (selectedProduct) {
-      setMainImage(selectedProduct);
+    switch (selectedCategory) {
+      case 'tops':
+        setSelectedTop(product);
+        break;
+      case 'jeans':
+        setSelectedJeans(product);
+        break;
+      case 'shoes':
+        setSelectedShoes(product);
+        break;
+      case 'bags':
+        setSelectedBag(product);
+        break;
+      case 'accessories':
+        setSelectedAccessory(product);
+        break;
+      default:
+        break;
     }
-    closeModal();
-    document.body.style.overflow = 'auto';
   };
-  
+
+  const renderProducts = () => {
+    let products = [];
+    switch (selectedCategory) {
+      case 'tops':
+        products = [image11, image12, image13, image14, image15];
+        break;
+      case 'jeans':
+        products = [jeans1, jeans2, jeans3, jeans4, jeans5];
+        break;
+      case 'shoes':
+        products = [shoes1, shoes2, shoes3, shoes4, shoes5];
+        break;
+      case 'bags':
+        products = [bag1, bag2, bag3, bag4, bag5];
+        break;
+      case 'accessories':
+        products = [accessory1, accessory2, accessory3, accessory4, accessory5];
+        break;
+      default:
+        break;
+    }
+    return products.map((product, index) => (
+      <div
+        key={index}
+        className={`product ${selectedCategory === product ? 'selected' : ''}`}
+        onClick={() => handleProductClick(product)}
+      >
+        <img src={product} alt={`Product ${index + 1}`} />
+        <p>Product {index + 1}</p>
+      </div>
+    ));
+  };
 
   return (
     <div className="CreateLookbook">
@@ -84,51 +146,35 @@ const CreateLookbook = () => {
       <div className="lookbook-container">
         <div className="content" style={{ height: '500px' }}>
           <div className="left-column">
-            <div className="box box1" onClick={() => openModal(image1)} style={{ border: selectedImage === image1 ? '3px solid #e41751' : 'none' }}>
-              <img src={mainImage} alt="Image 1"  />
+            <div className="box box1" onClick={() => openModal('tops')} style={{ border: selectedCategory === 'tops' ? '3px solid #e41751' : 'none' }}>
+              <img src={selectedTop} alt="Top" />
             </div>
-            <div className="box box2" onClick={() => openModal(image3)} style={{ border: selectedImage === image3 ? '3px solid #e41751' : 'none' }}>
-              <img src={image3} alt="Image 3" />
+            <div className="box box2" onClick={() => openModal('jeans')} style={{ border: selectedCategory === 'jeans' ? '3px solid #e41751' : 'none' }}>
+              <img src={selectedJeans} alt="Jeans" />
             </div>
           </div>
           <div className="right-column">
-            <div className="box box3" onClick={() => openModal(image2)} style={{ border: selectedImage === image2 ? '3px solid #e41751' : 'none' }}>
-              <img src={image2} alt="Image 2" />
+            <div className="box box3" onClick={() => openModal('shoes')} style={{ border: selectedCategory === 'shoes' ? '3px solid #e41751' : 'none' }}>
+              <img src={selectedShoes} alt="Shoes" />
             </div>
-            <div className="box box4" onClick={() => openModal(image4)} style={{ border: selectedImage === image4 ? '3px solid #e41751' : 'none' }}>
-              <img src={image4} alt="Image 4" />
+            <div className="box box4" onClick={() => openModal('bags')} style={{ border: selectedCategory === 'bags' ? '3px solid #e41751' : 'none' }}>
+              <img src={selectedBag} alt="Bag" />
             </div>
-            <div className="box box5" onClick={() => openModal(image5)} style={{ border: selectedImage === image5 ? '3px solid #e41751' : 'none' }}>
-              <img src={image5} alt="Image 5" />
+            <div className="box box5" onClick={() => openModal('accessories')} style={{ border: selectedCategory === 'accessories' ? '3px solid #e41751' : 'none' }}>
+              <img src={selectedAccessory} alt="Accessory" />
             </div>
           </div>
-        </div>
-        <div className="customize-section">
-          <button type="button" className="customize-look" onClick={handleCustomizeClick}>
-            <FontAwesomeIcon icon={faPencil} /> Customise this look
-          </button>
         </div>
         {isModalOpen && (
           <div className="modal">
             <div className="modal-content">
               <h3>Customize Your Look</h3>
-              {selectedImage === image1 && (
-                <div className="similar-products">
-                  {[image11, image12, image13, image14, image15].map((product, index) => (
-                    <div
-                      key={index}
-                      className={`product ${selectedProduct === product ? 'selected' : ''}`}
-                      onClick={() => handleProductClick(product)}
-                    >
-                      <img src={product} alt={`Product ${index + 1}`} />
-                      <p>Product {index + 1}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="similar-products">
+                {renderProducts()}
+              </div>
               <div className="modal-actions">
                 <button onClick={closeModal}>Cancel</button>
-                <button onClick={handleSaveChanges}>Save Changes</button>
+                <button onClick={closeModal}>Save Changes</button>
               </div>
             </div>
           </div>
