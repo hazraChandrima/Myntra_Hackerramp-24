@@ -561,7 +561,7 @@ background-color:#868686;
     grid-gap: 0; /* No gap between grid items */
     justify-items: center; /* Center items horizontally */
     align-items: center; /* Center items vertically */
-    width: 400px; /* Adjust width as needed */
+    width: 450px; /* Adjust width as needed */
     margin-left: 500px; /* Adjust left margin as needed */
 }
 
