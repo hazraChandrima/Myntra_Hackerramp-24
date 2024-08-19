@@ -611,17 +611,7 @@ export default function Try() {
     const complementaryColorsRef = useRef(null);
     const videoRef = useRef(null);
     const [videoStream, setVideoStream] = useState(null);
-    // const [hovered, setHovered]= useState(null);
-    // // const [selectedImage, setSelectedImage] = useState(null);
-
-    // const handleMouseEnter =()=>{
-    //     setHovered(true);
-    // }
-
-    // const handleMouseLeave=()=>{
-    //     setHovered(false);
-    // }
-
+   
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -812,14 +802,12 @@ export default function Try() {
             const g = pixel[1];
             const b = pixel[2];
 
-            // Calculate brightness
             const brightness = calculateBrightness(r, g, b);
 
-            // Set skin color
             setSkinColor(`rgb(${r},${g},${b})`);
 
             // Check if skin color is dark or light based on brightness
-            if (brightness < 128) {  // Threshold for dark skin
+            if (brightness < 128) { 
                 setIsDarkSkin(true);
             } else {
                 setIsDarkSkin(false);
@@ -1030,12 +1018,12 @@ export default function Try() {
                                             src={item.src}
                                             style={{ height: '250px', objectFit: 'contain', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
                                             alt={`img${item.id}`}
-                                            onMouseEnter={() => setHoveredItem(item.id)} // Set hovered item based on the item's id
-                                            onMouseLeave={() => setHoveredItem(null)} // Reset on mouse leave
+                                            onMouseEnter={() => setHoveredItem(item.id)} 
+                                            onMouseLeave={() => setHoveredItem(null)} 
                                             className="hover-effect"
                                         />
                                 
-                                        {hoveredItem === item.id && ( // Dynamically check hoveredItem
+                                        {hoveredItem === item.id && ( 
                                             <div style={{
                                                 position: 'absolute',
                                                 top: '10%',
@@ -1050,26 +1038,24 @@ export default function Try() {
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 justifyContent: 'flex-start',
-                                                animation: 'dropdownFadeIn 0.5s ease', // Apply animation
-                                                transition: 'opacity 0.5s ease, transform 0.5s ease', // Smooth transition
+                                                animation: 'dropdownFadeIn 0.5s ease', 
+                                                transition: 'opacity 0.5s ease, transform 0.5s ease', 
                                                 opacity: 1,
-                                                transform: 'translateY(0)', // Move into place
+                                                transform: 'translateY(0)', 
                                             }}
-                                                onMouseEnter={() => setHoveredItem(item.id)} // Keep dropdown visible on hover
-                                                onMouseLeave={() => setHoveredItem(null)} // Hide dropdown on leave
-                                            >
-                                                {/* Dropdown heading */}
-                                                <h3 style={{ marginBottom: '8px' }}>Items that'll go well with it</h3>
+                                                onMouseEnter={() => setHoveredItem(item.id)} 
+                                                onMouseLeave={() => setHoveredItem(null)} 
+                                            >                                                
+                                            <h3 style={{ marginBottom: '8px' }}>Items that'll go well with it</h3>
                                 
-                                                {/* Container for the images */}
                                                 <div style={{
                                                     display: 'flex',
                                                     width: '100%',
                                                     justifyContent: 'space-evenly',
-                                                    height: '100%', // Ensure the images take up full width
+                                                    height: '100%', 
                                                 }}>
                                                     <img
-                                                        src={item.relatedSrc1} // Dynamically render related images
+                                                        src={item.relatedSrc1} 
                                                         style={{
                                                             height: '80%',
                                                             width:'135px',
@@ -1080,7 +1066,7 @@ export default function Try() {
                                                         className="hover-effect"
                                                     />
                                                     <img
-                                                        src={item.relatedSrc2} // Dynamically render related images
+                                                        src={item.relatedSrc2} 
                                                         style={{
                                                             height: '80%',
                                                             width:'135px',
@@ -1091,7 +1077,7 @@ export default function Try() {
                                                         className="hover-effect"
                                                     />
                                                     <img
-                                                        src={item.relatedSrc3} // Dynamically render related images
+                                                        src={item.relatedSrc3} 
                                                         style={{
                                                             height: '80%',
                                                             width:'135px',
@@ -1157,12 +1143,12 @@ export default function Try() {
                                             src={item.src}
                                             style={{ height: '250px', objectFit: 'contain', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
                                             alt={`img${item.id}`}
-                                            onMouseEnter={() => setHoveredItem(item.id)} // Set hovered item based on the item's id
-                                            onMouseLeave={() => setHoveredItem(null)} // Reset on mouse leave
+                                            onMouseEnter={() => setHoveredItem(item.id)} 
+                                            onMouseLeave={() => setHoveredItem(null)} 
                                             className="hover-effect"
                                         />
                                 
-                                        {hoveredItem === item.id && ( // Dynamically check hoveredItem
+                                        {hoveredItem === item.id && (
                                             <div style={{
                                                 position: 'absolute',
                                                 top: '10%',
@@ -1177,26 +1163,24 @@ export default function Try() {
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 justifyContent: 'flex-start',
-                                                animation: 'dropdownFadeIn 0.5s ease', // Apply animation
-                                                transition: 'opacity 0.5s ease, transform 0.5s ease', // Smooth transition
+                                                animation: 'dropdownFadeIn 0.5s ease', 
+                                                transition: 'opacity 0.5s ease, transform 0.5s ease', 
                                                 opacity: 1,
-                                                transform: 'translateY(0)', // Move into place
+                                                transform: 'translateY(0)', 
                                             }}
-                                                onMouseEnter={() => setHoveredItem(item.id)} // Keep dropdown visible on hover
-                                                onMouseLeave={() => setHoveredItem(null)} // Hide dropdown on leave
+                                                onMouseEnter={() => setHoveredItem(item.id)} 
+                                                onMouseLeave={() => setHoveredItem(null)} 
                                             >
-                                                {/* Dropdown heading */}
                                                 <h3 style={{ marginBottom: '8px' }}>Items that'll go well with it</h3>
                                 
-                                                {/* Container for the images */}
                                                 <div style={{
                                                     display: 'flex',
                                                     width: '100%',
                                                     justifyContent: 'space-evenly',
-                                                    height: '100%', // Ensure the images take up full width
+                                                    height: '100%', 
                                                 }}>
                                                     <img
-                                                        src={item.relatedSrc1} // Dynamically render related images
+                                                        src={item.relatedSrc1} 
                                                         style={{
                                                             height: '80%',
                                                             width:'135px',
@@ -1207,7 +1191,7 @@ export default function Try() {
                                                         className="hover-effect"
                                                     />
                                                     <img
-                                                        src={item.relatedSrc2} // Dynamically render related images
+                                                        src={item.relatedSrc2} 
                                                         style={{
                                                             height: '80%',
                                                             width:'135px',
@@ -1218,7 +1202,7 @@ export default function Try() {
                                                         className="hover-effect"
                                                     />
                                                     <img
-                                                        src={item.relatedSrc3} // Dynamically render related images
+                                                        src={item.relatedSrc3} 
                                                         style={{
                                                             height: '80%',
                                                             width:'135px',
