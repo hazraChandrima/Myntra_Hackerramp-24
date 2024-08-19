@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './Lookbooks.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocket } from '@fortawesome/free-solid-svg-icons';
 
-const LookbookCard = ({ tags }) => {
-
-  const timeAgo = generateRandomTimeAgo();
-  const likes = generateRandomLikes();
-  const boosts = generateRandomBoosts();
+const LookbookCard = ({ tags, image, username = "Username", avatar }) => {
+  // Generate random values only once
+  const timeAgo = useMemo(() => generateRandomTimeAgo(), []);
+  const likes = useMemo(() => generateRandomLikes(), []);
+  const boosts = useMemo(() => generateRandomBoosts(), []);
 
   function generateRandomTimeAgo() {
     const times = ['16d ago', '1 month ago', '2 weeks ago', '3d ago', '2 months ago'];
@@ -25,11 +25,11 @@ const LookbookCard = ({ tags }) => {
   return (
     <div className="lookbook-card">
       <div className="header">
-        <div className="avatar"></div>
-        <div className="username">Username</div>
+        {avatar ? <img src={avatar} alt="Avatar" className="avatar" /> : <div className="avatar"></div>}
+        <div className="username">{username}</div>
       </div>
       <div className="content">
-        <div className="box">Lookbook Content</div>
+        {image ? <img src={image} alt="Lookbook" className="lookbook-image" /> : <div className="box">Lookbook Content</div>}
       </div>
       <div className="footer">
         <div className="boosts" style={{ color: 'black' }}>
@@ -47,11 +47,3 @@ const LookbookCard = ({ tags }) => {
 };
 
 export default LookbookCard;
-
-
-
-
-
-
-
-

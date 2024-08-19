@@ -230,8 +230,8 @@
 .customize-look {
   width: 100%;
   padding: 15px;
-  background-color:rgb(218, 203, 203);
-  color: black;
+  background-color:#e41751;
+  color: rgb(241, 217, 217);
   text-align: center;
   font-size: 18px;
   font-weight: bold;
@@ -241,7 +241,8 @@
 }
 
 .customize-look:hover {
-  background-color: #e41751;
+  background-color: #e68ba5;
+  color: rgb(12, 11, 11);
 }
 
 /* Pink border around selected image */
