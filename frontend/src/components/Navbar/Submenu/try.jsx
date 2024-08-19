@@ -3,6 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 // import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 // import Webcam from 'react-webcam';
 
+const calculateBrightness = (r, g, b) => {
+    // Using the formula: Brightness = (0.299*R + 0.587*G + 0.114*B)
+    return (0.299 * r + 0.587 * g + 0.114 * b);
+};
 
 
 const css = `
@@ -55,7 +59,7 @@ p {
 }
 
 .capture-button, .browse-button {
-    background-color: #ff007f;
+    background-color: #ff3f6c;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -112,18 +116,18 @@ p {
     width: 100%;
 }
 
-.previous, .next, .getStarted {
-    background-color: #3d3dff;
+.previous, .next {
+    background-color: #4646c9;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .previous:hover, .next:hover {
-    background-color: #3333cc;
+    background-color: #1e1e7a;
 }
 
 #canvas {
@@ -164,7 +168,7 @@ margin:10px;
 }
 
 #comp-color1{
-background-color:#fefefe;
+background-color:#ddf1ff;
 }
 
 #comp-color2{
@@ -237,6 +241,89 @@ background-color:#F5DEB3;
 #comp-color20{
 background-color:#e4006f;
 }
+#comp-color25{
+background-color:#868686;
+}
+#comp-darkColor1 {
+    background-color: #e4006f; /* Hot Pink */
+}
+
+#comp-darkColor2 {
+    background-color: #f2994a; /* Bright Orange */
+}
+
+#comp-darkColor3 {
+    background-color: #006400; /* Dark Green */
+}
+
+#comp-darkColor4 {
+    background-color: #ff6347; /* Tomato Red */
+}
+
+#comp-darkColor5 {
+    background-color: #eccd82; 
+}
+
+#comp-darkColor6 {
+    background-color: #483d8b; /* Dark Slate Blue */
+}
+
+#comp-darkColor7 {
+    background-color: #c6adaf; /* Orange Red */
+}
+
+#comp-darkColor8 {
+    background-color: #4682b4; /* Steel Blue */
+}
+
+#comp-darkColor9 {
+    background-color: #ff69b4; /* Hot Pink Light */
+}
+
+#comp-darkColor10 {
+    background-color: #6a5acd; /* Slate Blue */
+}
+
+#comp-darkColor11 {
+    background-color: #008b8b; /* Dark Cyan */
+}
+
+#comp-darkColor12 {
+    background-color: #ffa07a; /* Light Salmon */
+}
+
+#comp-darkColor13 {
+    background-color:#eff0f5; /* Burly Wood */
+}
+
+#comp-darkColor14 {
+    background-color: #2e8b57; /* Sea Green */
+}
+
+#comp-darkColor15 {
+    background-color: #4b6a72; /* Deep Pink */
+}
+
+#comp-darkColor16 {
+    background-color: #daa520; /* Goldenrod */
+}
+
+#comp-darkColor17 {
+    background-color: #0f3367; /* Blue Violet */
+}
+
+#comp-darkColor18 {
+    background-color: #cd5c5c; /* Indian Red */
+}
+
+#comp-darkColor19 {
+    background-color: #aedd34; /* Lime Green */
+}
+
+#comp-darkColor20 {
+    background-color: #c6d9ed; /* Dark Orange */
+}
+
 
 .video-container {
     width: 100%;
@@ -267,18 +354,18 @@ background-color:#e4006f;
 }
 
 .getStarted {
-    background-color: #3d3dff;
+    background-color: #4646c9;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 28px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 20px;
 }
 
 .getStarted:hover {
-    background-color: #3333cc;
+    background-color: #1e1e7a;
 }
 
 .file-input-container {
@@ -289,33 +376,39 @@ background-color:#e4006f;
 }
 
 .capture-button, .custom-file-upload {
-    background-color: #ff007f;
+    background-color: #ff3f6c;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-right: 10px; /* Adjust spacing between buttons */
 }
 
 .capture-button:hover, .custom-file-upload:hover {
-    background-color: #cc0066;
+    background-color: #c63c5c;
 }
 
 .custom-file-upload {
-    background-color: #ff007f;
+    background-color: #ff3f6c;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 10px; /* Adjust the margin-top as needed */
 }
 
+.hover-effect:hover {
+    transform: scale(1.05); 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+
 .custom-file-upload:hover {
-    background-color: #cc0066;
+    background-color: #c63c5c;
 }
 #canvas {
     border: 1px solid black;
@@ -327,7 +420,7 @@ background-color:#e4006f;
 }
 
 #canvas:hover {
-    cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNS4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjQgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTI1NiAwYzE3LjcgMCAzMiAxNC4zIDMyIDMyVjQyLjRjOTMuNyAxMy45IDE2Ny43IDg4IDE4MS42IDE4MS42SDQ4MGMxNy43IDAgMzIgMTQuMyAzMiAzMnMtMTQuMyAzMi0zMiAzMkg0NjkuNmMtMTMuOSA5My43LTg4IDE2Ny43LTE4MS42IDE4MS42VjQ4MGMwIDE3LjctMTQuMyAzMi0zMiAzMnMtMzItMTQuMy0zMi0zMlY0NjkuNkMxMzAuMyA0NTUuNyA1Ni4zIDM4MS43IDQyLjQgMjg4SDMyYy0xNy43IDAtMzItMTQuMy0zMi0zMnMxNC4zLTMyIDMyLTMySDQyLjRDNTYuMyAxMzAuMyAxMzAuMyA1Ni4zIDIyNCA0Mi40VjMyYzAtMTcuNyAxNC4zLTMyIDMyLTMyek0xMDcuNCAyODhjMTIuNSA1OC4zIDU4LjQgMTA0LjEgMTE2LjYgMTE2LjZWMzg0YzAtMTcuNyAxNC4zLTMyIDMyLTMyczMyIDE0LjMgMzIgMzJ2MjAuNmM1OC4zLTEyLjUgMTA0LjEtNTguNCAxMTYuNi0xMTYuNkgzODRjLTE3LjcgMC0zMi0xNC4zLTMyLTMyczE0LjMtMzIgMzItMzJoMjAuNkMzOTIuMSAxNjUuNyAzNDYuMyAxMTkuOSAyODggMTA3LjRWMTI4YzAgMTcuNy0xNC4zIDMyLTMyIDMycy0zMi0xNC4zLTMyLTMyVjEwNy40QzE2NS43IDExOS45IDExOS45IDE2NS43IDEwNy40IDIyNEgxMjhjMTcuNyAwIDMyIDE0LjMgMzIgMzJzLTE0LjMgMzItMzIgMzJIMTA3LjR6TTI1NiAyMjRhMzIgMzIgMCAxIDEgMCA2NCAzMiAzMiAwIDEgMSAwLTY0eiIvPjwvc3ZnPg== '), auto;
+    cursor: crosshair;
 }
 
 #canvas:focus {
@@ -468,13 +561,13 @@ background-color:#e4006f;
     grid-gap: 0; /* No gap between grid items */
     justify-items: center; /* Center items horizontally */
     align-items: center; /* Center items vertically */
-    width: 500px; /* Adjust width as needed */
+    width: 400px; /* Adjust width as needed */
     margin-left: 500px; /* Adjust left margin as needed */
 }
 
 .color-boxes {
-    width: 100%; /* Each box takes up 100% width of its grid cell */
-    height: 100%; /* Each box takes up 100% height of its grid cell */
+    width: 95%; 
+    height: 90%; /* Each box takes up 100% height of its grid cell */
     background-color: #ccc; /* Placeholder color */
     border: 1px solid transparent; /* Initial 1px transparent border */
     border-top: 1px solid #ccc; /* Initial 1px solid #ccc on top */
@@ -490,21 +583,35 @@ background-color:#e4006f;
     transform: scale(1.05); /* Slightly larger size on click */
 }
 
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px); /* Start slightly above */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Move to original position */
+    }
+}
+
 
 
 `;
 
 export default function Try() {
 
+    const [skinColor, setSkinColor] = useState(null);
+    const [isDarkSkin, setIsDarkSkin] = useState(false);
+    const [picked, setPicked] = useState(false);
     const [uploadedImage, setUploadedImage] = useState(null);
     const [selectedColors, setSelectedColors] = useState([]);
     const [step, setStep] = useState(1);
+    const [hoveredItem, setHoveredItem] = useState(null);
     // const [webcamActive, setWebcamActive] = useState(true);
-    const complementaryColorsRef = useRef(null); 
-    const videoRef = useRef(null); 
-    const [videoStream, setVideoStream] = useState(null); 
-    // const [selectedImage, setSelectedImage] = useState(null);
-
+    const complementaryColorsRef = useRef(null);
+    const videoRef = useRef(null);
+    const [videoStream, setVideoStream] = useState(null);
+   
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -579,13 +686,144 @@ export default function Try() {
         };
     }, [step]);
 
+    const renderPaletteForDarkSkin = () => {
+        return (
+
+            <div id="step3">
+                <h2>Your personal palette for dark undertone</h2>
+                <div ref={complementaryColorsRef} id="complementaryColors"></div>
+                <p>The <b>Autumn</b> contains earthy and warm colors. blah blah blah blah.</p>
+                <p><b>Please select up to three colors you prefer to proceed with your color choices</b></p>
+                <h3>Best Colors</h3>
+                <div className="colors-containers">
+                    {[...Array(20).keys()].map(index => (
+                        <div
+                            key={`comp-darkColor${index + 1}`}
+                            id={`comp-darkColor${index + 1}`}
+                            className="color-boxes"
+                            onClick={(e) => {
+                                e.currentTarget.classList.toggle('selected');
+                            }}
+                        ></div>
+                    ))}
+                </div>
+
+                <h3>Colors to avoid</h3>
+                <div className="colors-containers">
+                    <div id="comp-color21" className="color-boxes"></div>
+                    <div id="comp-color22" className="color-boxes"></div>
+                    <div id="comp-color23" className="color-boxes"></div>
+                    <div id="comp-color25" className="color-boxes"></div>
+                </div>
+
+
+                <div className="navigation">
+                    <button id="toStep2" className="previous" onClick={() => setStep(2)}>Previous</button>
+                    <button id="toStep4" className="next" onClick={() => setStep(5)}>Next</button>
+                </div>
+            </div>
+        );
+    };
+
+    const renderPaletteForLightSkin = () => {
+        return (
+            <div id="step3">
+                <h2>Your personal palette for light undertone</h2>
+                <div ref={complementaryColorsRef} id="complementaryColors"></div>
+                <p>The <b>Deep Winter palette</b> contains dark and vivid colors. Black will be a staple of your wardrobe, as will navy and charcoal—traditional “corporate” shades make it easy to build a great core wardrobe. Dress looks up with a shot of hot pink or Chinese blue.</p>
+                <p><b>Please select up to three colors you prefer to proceed with your color choices</b></p>
+                <h3>Best Colors</h3>
+                <div className="colors-containers">
+                    {[...Array(20).keys()].map(index => (
+                        <div
+                            key={`comp-color${index + 1}`}
+                            id={`comp-color${index + 1}`}
+                            className="color-boxes"
+                            onClick={(e) => {
+                                e.currentTarget.classList.toggle('selected');
+                            }}
+                        ></div>
+                    ))}
+                </div>
+
+                <h3>Colors to avoid</h3>
+                <div className="colors-containers">
+                    <div id="comp-color21" className="color-boxes"></div>
+                    <div id="comp-color22" className="color-boxes"></div>
+                    <div id="comp-color23" className="color-boxes"></div>
+                    <div id="comp-color24" className="color-boxes"></div>
+                </div>
+
+
+                <div className="navigation">
+                    <button id="toStep2" className="previous" onClick={() => setStep(2)}>Previous</button>
+                    <button id="toStep4" className="next" onClick={() => setStep(4)}>Next</button>
+                </div>
+            </div>
+
+        );
+    };
+
+    const renderStep3 = () => {
+        return (
+            <div>
+                <h2>Select Colors</h2>
+                {isDarkSkin ? renderPaletteForDarkSkin() : renderPaletteForLightSkin()}
+            </div>
+        );
+    };
+
+
     const handleCanvasClick = (e) => {
-        if (selectedColors.length < 3) {
+
+        if (selectedColors.length === 0) {
+            console.log('First pick action');
+            // setPicked(true); 
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
             const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            const pixel = ctx.getImageData(x, y, 1, 1).data;
+            const hexColor = rgbToHex(pixel[0], pixel[1], pixel[2]);
+
+
+            setSelectedColors([...selectedColors, hexColor]);
+
+            console.log('Selected color:', hexColor);
+            console.log('Color count:', selectedColors.length + 1);
+
+            document.getElementById('skinColor').style.backgroundColor = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+
+            // Get RGB values
+            const r = pixel[0];
+            const g = pixel[1];
+            const b = pixel[2];
+
+            const brightness = calculateBrightness(r, g, b);
+
+            setSkinColor(`rgb(${r},${g},${b})`);
+
+            // Check if skin color is dark or light based on brightness
+            if (brightness < 128) { 
+                setIsDarkSkin(true);
+            } else {
+                setIsDarkSkin(false);
+            }
+
+        }
+
+
+        else if (selectedColors.length >= 1) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
             const pixel = ctx.getImageData(x, y, 1, 1).data;
             const hexColor = rgbToHex(pixel[0], pixel[1], pixel[2]);
 
@@ -594,9 +832,7 @@ export default function Try() {
             console.log('Selected color:', hexColor);
             console.log('Color count:', selectedColors.length + 1);
 
-            if (selectedColors.length === 0) {
-                document.getElementById('skinColor').style.backgroundColor = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
-            } else if (selectedColors.length === 1) {
+            if (selectedColors.length === 1) {
                 document.getElementById('hairColor').style.backgroundColor = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
             } else if (selectedColors.length === 2) {
                 document.getElementById('eyeColor').style.backgroundColor = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
@@ -604,7 +840,7 @@ export default function Try() {
                 document.getElementById('toStep3').disabled = false;
             }
 
-        } 
+        }
         else {
             alert("You have already selected three colors.");
         }
@@ -703,94 +939,292 @@ export default function Try() {
                                     </label>
                                 </div>
                             </div>
-                            <button className="getStarted" onClick={() => handleNavigation(2)}>
+                            <button className="getStarted" onClick={() => { handleNavigation(2); stopWebcam() }}>
                                 Get Started
                             </button>
                         </>
                     )}
-                    {step === 2 && (
-                        <div id="step2" className="step-container">
-                            <h2>Select your natural colors</h2>
-                            <p>Select your hair, skin, and eye color using the color picker tool. Choose the most prominent tones for your hair and skin. For the eyes, choose the color in the middle of the iris.</p>
-                            <div className="canvas-and-colors">
-                                <canvas id="canvas" onClick={handleCanvasClick}></canvas>
-                                <div className="colors-container">
-                                    <div className="color-box" id="skinColor">
-                                        <span className="color-label">Skin</span>
-                                    </div>
-                                    <div className="color-box" id="hairColor">
-                                        <span className="color-label" >Hair</span>
-                                    </div>
-                                    <div className="color-box" id="eyeColor">
-                                        <span className="color-label" >Eye</span>
+                    {step === 2 &&
+                        (
+                            <div id="step2" className="step-container">
+                                <h2>Select your natural colors</h2>
+                                <p>Select your hair, skin, and eye color using the color picker tool. Choose the most prominent tones for your hair and skin. For the eyes, choose the color in the middle of the iris.</p>
+                                <div className="canvas-and-colors">
+                                    <canvas id="canvas" onClick={handleCanvasClick}></canvas>
+                                    <div className="colors-container">
+                                        <div className="color-box" id="skinColor">
+                                            <span className="color-label">Skin</span>
+                                        </div>
+                                        <div className="color-box" id="hairColor">
+                                            <span className="color-label" >Hair</span>
+                                        </div>
+                                        <div className="color-box" id="eyeColor">
+                                            <span className="color-label" >Eye</span>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="navigation">
+                                    <button id="toStep1" className="previous" onClick={() => setStep(1)}>Previous</button>
+                                    <button id="toStep3" className="next" disabled={selectedColors.length < 3} onClick={() => setStep(3)}>Next</button>
+                                </div>
                             </div>
-                            <div className="navigation">
-                                <button id="toStep1" className="previous" onClick={() => setStep(1)}>Previous</button>
-                                <button id="toStep3" className="next" disabled={selectedColors.length < 3} onClick={() => setStep(3)}>Next</button>
-                            </div>
-                        </div>
-                    )}
+                        )
+                    }
+
+                    {step === 3 && renderStep3()}
 
 
-
-                    {step === 3 && (
-                        <div id="step3">
-                            <h2>Your personal palette</h2>
-                            <div ref={complementaryColorsRef} id="complementaryColors"></div>
-                            <p>The <b>Deep Winter palette</b> contains dark and vivid colors. Black will be a staple of your wardrobe, as will navy and charcoal—traditional “corporate” shades make it easy to build a great core wardrobe. Dress looks up with a shot of hot pink or Chinese blue.</p>
-                             <p><b>Please select up to three colors you prefer to proceed with your color choices</b></p>
-                            <h3>Best Colors</h3>
-                            <div className="colors-containers">
-                                {[...Array(20).keys()].map(index => (
+                    {step === 4 && (
+                        <div id="step4">
+                            <h2 style={{ marginBottom: '-30px' }}>A wardrobe that suits your natural color palette</h2>
+                            <div id="clothingItems" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridColumnGap: '15px', gridRowGap: '15px' }}>
+                                {[
+                                    { id: 1, src: "https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/14954338/2021/11/16/d7444b7b-daef-4ab9-bb87-6add0032adfa1637046244433-Roadster-Women-Jeans-3581637046244134-1.jpg" ,
+                                        relatedSrc1: "https://m.media-amazon.com/images/I/71I2QrobMRS._AC_UY1000_.jpg",
+                                        relatedSrc2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwhoyEvegM9F-eAR2878nsawva5ADVuZImeA&s",
+                                        relatedSrc3: "https://styleunion.in/cdn/shop/products/LTO00109ORANGE_1.jpg?v=1693569278"
+                                    },
+                                    { id: 2, src: "https://assets.myntassets.com/dpr_1.5,q_60,w_270,c_limit,fl_progressive/assets/images/25792610/2023/11/23/3fd59ed1-b310-4760-96ea-0eafd69579f71700760808608AntheaaPinkPrintBellSleeveChiffonFitFlareDress1.jpg",
+                                        relatedSrc1: "https://assets.ajio.com/medias/sys_master/root/20231025/uCr5/6538ecc8afa4cf41f55efe9e/-473Wx593H-466745334-brown-MODEL.jpg",
+                                        relatedSrc2: "https://rukminim2.flixcart.com/image/850/1000/xif0q/sandal/v/0/z/-original-imaghvb9sk7yzdhd.jpeg?q=90&crop=false",
+                                        relatedSrc3: "https://www.instyle.com/thmb/fLr1xvbcYs51RIiczv485_o6CqM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/060222-meringue-leather-crossbody-bag-embed-8b97696d33cf4fe7a79d544ed07973b9.jpg"
+                                     },
+                                    { id: 3, src: "https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/22302916/2023/9/20/36f97b8b-3c64-452a-9094-91ec0f9af56b1695211618012MANGOWomenBeltedA-LineMidiDress1.jpg",
+                                        relatedSrc1: "https://assets.myntassets.com/dpr_1.5,q_60,w_400,c_limit,fl_progressive/assets/images/25286588/2023/11/16/7052ec82-cfc8-4a0c-8f7c-5f4de8964ea01700125931989VoyageWomenSquareSunglassesWithUVProtectedLens-8926WMG27781.jpg",
+                                        relatedSrc2: "https://rukminim2.flixcart.com/image/850/1000/xif0q/sandal/g/r/n/4-101-37-turmook-black-original-imaggv3hzpkwyhrg.jpeg?q=90&crop=false",
+                                        relatedSrc3: "https://images-cdn.ubuy.co.in/653e69e2a1011b04cf0ed5af-denim-handbags-for-women-jean-purse-with.jpg"
+                                     },
+                                    { id: 4, src: "https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/24212924/2023/7/26/b217c7af-1bc7-4cae-a016-03782721be631690376443137AthenaLightblueDenimjacket1.jpg",
+                                        relatedSrc1: "https://rukminim2.flixcart.com/image/850/1000/l3vxbbk0/sunglass/v/c/i/fit-all-rectanglular-sunglasses-for-women-retro-driving-original-imagewnf4zhvk2yz.jpeg?q=20&crop=false",
+                                        relatedSrc2: "https://images.cltstatic.com/media/product/350/AE00259-SS0000-rihanna-f-mini-hoops-in--silver-prd-1-model.jpg",
+                                        relatedSrc3: "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/a/6/u/3-ld1050-3-layasa-white-original-imaggkmwastngq76.jpeg?q=90&crop=false"
+                                     },
+                                    { id: 5, src: "https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/24155188/2024/5/8/5b31e490-797a-4861-a509-89803b41ef451715159683198TokyoTalkiesPinkShoulderStrapSmockingDetailedCropFittedTop1.jpg",
+                                        relatedSrc1: "https://www.shutterstock.com/image-photo/closeup-portrait-attractive-young-woman-260nw-1495594070.jpg",
+                                        relatedSrc2: "https://www.truesilver.co.in/cdn/shop/files/AFHP3636D20MSL-1copy_600x.jpg?v=1696395518",
+                                        relatedSrc3: "https://www.aldoshoes.in/on/demandware.static/-/Sites-aldo_master_catalog/default/dw2d7af2d4/large/abqx0rda0g6350z_AAC_y8eyGDHnlsIASoVT5gNAa_mesmerize_pink670051_1.jpg.jpg"
+                                     },
+                                    { id: 6, src: "https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/27234096/2024/1/30/45928840-4422-44a3-87b7-49eb922cc3341706609506508AthenaDenimMidiDress1.jpg",
+                                        relatedSrc1: "https://www.campusshoes.com/cdn/shop/products/RAISE_WHT_f1a5a2ec-8a23-4795-a796-0da7455dc57a.jpg?v=1705476016",
+                                        relatedSrc2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOrqO1j1hdeRqRYzJxPwXGjFmpQgTBmgkcWA&s",
+                                        relatedSrc3: "https://assets.ajio.com/medias/sys_master/root/20230921/BfgQ/650c2c2bafa4cf41f5f88c70/-473Wx593H-466054387-black-MODEL.jpg"
+                                     },
+                                ].map(item => (
                                     <div
-                                        key={`comp-color${index + 1}`}
-                                        id={`comp-color${index + 1}`}
-                                        className="color-boxes"
-                                        onClick={(e) => {
-                                            e.currentTarget.classList.toggle('selected');
-                                        }}
-                                    ></div>
+                                        key={item.id}
+                                        style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}
+                                    >
+                                        <img
+                                            src={item.src}
+                                            style={{ height: '250px', objectFit: 'contain', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+                                            alt={`img${item.id}`}
+                                            onMouseEnter={() => setHoveredItem(item.id)} 
+                                            onMouseLeave={() => setHoveredItem(null)} 
+                                            className="hover-effect"
+                                        />
+                                
+                                        {hoveredItem === item.id && ( 
+                                            <div style={{
+                                                position: 'absolute',
+                                                top: '10%',
+                                                right: (item.id % 3 === 0) ? '70%' : '',
+                                                left: (item.id % 3 !== 0) ? '70%' : '',
+                                                backgroundColor: 'white',
+                                                width: '130%',
+                                                height: '90%',
+                                                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                                                zIndex: '10',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'flex-start',
+                                                animation: 'dropdownFadeIn 0.5s ease', 
+                                                transition: 'opacity 0.5s ease, transform 0.5s ease', 
+                                                opacity: 1,
+                                                transform: 'translateY(0)', 
+                                            }}
+                                                onMouseEnter={() => setHoveredItem(item.id)} 
+                                                onMouseLeave={() => setHoveredItem(null)} 
+                                            >                                                
+                                            <h3 style={{ marginBottom: '8px' }}>Items that'll go well with it</h3>
+                                
+                                                <div style={{
+                                                    display: 'flex',
+                                                    width: '100%',
+                                                    justifyContent: 'space-evenly',
+                                                    height: '100%', 
+                                                }}>
+                                                    <img
+                                                        src={item.relatedSrc1} 
+                                                        style={{
+                                                            height: '80%',
+                                                            width:'135px',
+                                                            objectFit: 'cover',
+                                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                                        }}
+                                                        alt={`related1_${item.id}`}
+                                                        className="hover-effect"
+                                                    />
+                                                    <img
+                                                        src={item.relatedSrc2} 
+                                                        style={{
+                                                            height: '80%',
+                                                            width:'135px',
+                                                            objectFit: 'cover',
+                                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                                        }}
+                                                        alt={`related2_${item.id}`}
+                                                        className="hover-effect"
+                                                    />
+                                                    <img
+                                                        src={item.relatedSrc3} 
+                                                        style={{
+                                                            height: '80%',
+                                                            width:'135px',
+                                                            objectFit: 'cover',
+                                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                                        }}
+                                                        alt={`related3_${item.id}`}
+                                                        className="hover-effect"
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
-
-                            <h3>Colors to avoid</h3>
-                            <div className="colors-containers">
-                                <div id="comp-color21" className="color-boxes"></div>
-                                <div id="comp-color22" className="color-boxes"></div>
-                                <div id="comp-color23" className="color-boxes"></div>
-                                <div id="comp-color24" className="color-boxes"></div>
-                            </div>
-
-
                             <div className="navigation">
-                                <button id="toStep2" className="previous" onClick={() => setStep(2)}>Previous</button>
-                                <button id="toStep4" className="next" onClick={() => setStep(4)}>Next</button>
+                                <button id="toStep3Back" className="previous" onClick={() => setStep(3)}>Previous</button>
                             </div>
                         </div>
                     )}
-
-
-
-{step === 4 && (
-    <div id="step4">
-        <h2 style={{marginBottom:'-30px'}}>A wardrobe that suits your natural color palette</h2>
-        <div id="clothingItems" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridColumnGap: '15px', gridRowGap: '15px' }}>
-            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/14954338/2021/11/16/d7444b7b-daef-4ab9-bb87-6add0032adfa1637046244433-Roadster-Women-Jeans-3581637046244134-1.jpg" style={{marginLeft:'250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img1" />
-            <img src="https://assets.myntassets.com/dpr_1.5,q_60,w_270,c_limit,fl_progressive/assets/images/25792610/2023/11/23/3fd59ed1-b310-4760-96ea-0eafd69579f71700760808608AntheaaPinkPrintBellSleeveChiffonFitFlareDress1.jpg" style={{ width: '100%', height: '250px', objectFit: 'contain' }} alt="img2" />
-            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/22302916/2023/9/20/36f97b8b-3c64-452a-9094-91ec0f9af56b1695211618012MANGOWomenBeltedA-LineMidiDress1.jpg" style={{marginLeft:'-250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img3" />
-            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/24212924/2023/7/26/b217c7af-1bc7-4cae-a016-03782721be631690376443137AthenaLightblueDenimjacket1.jpg" style={{marginLeft:'250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img4" />
-            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/24155188/2024/5/8/5b31e490-797a-4861-a509-89803b41ef451715159683198TokyoTalkiesPinkShoulderStrapSmockingDetailedCropFittedTop1.jpg" style={{ width: '100%', height: '250px', objectFit: 'contain' }} alt="img5" />
-            <img src="https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/27234096/2024/1/30/45928840-4422-44a3-87b7-49eb922cc3341706609506508AthenaDenimMidiDress1.jpg" style={{marginLeft:'-250px', width: '100%', height: '250px', objectFit: 'contain' }} alt="img6" />
-        </div>
-        <div className="navigation">
-            <button id="toStep3Back" className="previous" onClick={() => setStep(3)}>Previous</button>
-        </div>
-    </div>
-)}
+                    
+                    {step === 5 && (
+                        <div id="step4">
+                            <h2 style={{ marginBottom: '-30px' }}>A wardrobe that suits your dark color palette</h2>
+                            <div id="clothingItems" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridColumnGap: '15px', gridRowGap: '15px' }}>
+                                {[
+                                    { id: 1, src: "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/22230496/2023/3/4/5ada409e-e1cf-427f-8d4c-46edea988ca11677937944804DODOMOAGreenGeorgetteMaxiDress1.jpg" ,
+                                        relatedSrc1: "https://www.jcrew.com/s7-img-facade/G0397_WT0002?hei=2000&crop=0,0,1600,0",
+                                        relatedSrc2: "https://assets.ajio.com/medias/sys_master/root/20230410/YCEC/64342149711cf97ba718cf82/-473Wx593H-469476970-white-MODEL2.jpg",
+                                        relatedSrc3: "https://i.pinimg.com/736x/d5/10/34/d51034ae9c0443659498b5d29e020913.jpg"
+                                    },
+                                    { id: 2, src: "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/23723666/2023/6/22/aaba5068-a0ca-42a4-86f2-234161752c5e1687432540674VeroModaPeach-ColouredShirtMidiDress5.jpg",
+                                        relatedSrc1: "https://images.squarespace-cdn.com/content/v1/539dffebe4b080549e5a5df5/1532559234843-6VD2VH07FRCPSKBGIEMF/turquoise-leather-crossbody-organizer-handbag-museum-outlets.jpg?format=1000w",
+                                        relatedSrc2: "https://stylestryproductionwls47sou4z.cdn.e2enetworks.net/images/products/medium/2e4f2339bb8b056553dbefe2f64bf2345eddcec0.webp",
+                                        relatedSrc3: "https://starkle.in/cdn/shop/files/Artboard5_ada9cf6c-3e38-4da1-8da4-d6fb57cf5610.png?v=1709908233&width=1000"
+                                     },
+                                    { id: 3, src: "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/20476336/2024/7/18/563e220d-f8df-4118-af73-76f3a2f543631721300333456FlyingMachineWomenNavyBlueWideLegHigh-RiseLightFadeStretchab1.jpg",
+                                        relatedSrc1: "https://www.campusshoes.com/cdn/shop/products/RAISE_WHT_f1a5a2ec-8a23-4795-a796-0da7455dc57a.jpg?v=1705476016",
+                                        relatedSrc2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCAj0ka2EuOIzk6r-l2EzacmzHP_PSNZl_3Q&s",
+                                        relatedSrc3: "https://assets.ajio.com/medias/sys_master/root/20240728/vR9O/66a5ecb51d763220fa450c8d/-473Wx593H-465670237-white-MODEL2.jpg"
+                                     },
+                                    { id: 4, src: "https://assets.myntassets.com/w_270,q_60,dpr_2,fl_progressive/assets/images/24212924/2023/7/26/b217c7af-1bc7-4cae-a016-03782721be631690376443137AthenaLightblueDenimjacket1.jpghttps://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/22424774/2023/3/20/ea53be36-0e57-4e9c-bfab-3de258506f581679289462537Skirts1.jpg",
+                                        relatedSrc1: "https://images.meesho.com/images/products/368517173/j6x6s_512.jpg",
+                                        relatedSrc2: "https://images.cltstatic.com/media/product/350/AE00259-SS0000-rihanna-f-mini-hoops-in--silver-prd-1-model.jpg",
+                                        relatedSrc3: "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/a/6/u/3-ld1050-3-layasa-white-original-imaggkmwastngq76.jpeg?q=90&crop=false"
+                                     },
+                                    { id: 5, src: "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/26511378/2023/12/19/74a3e0b0-bf2b-49f5-8ccd-4226253998d71702972463333MABISHbySonalJainPurpleSatinDress1.jpg",
+                                        relatedSrc1: "https://d25g9z9s77rn4i.cloudfront.net/uploads/product/265/1661190684_0429d9ea23405e6d0325.jpg",
+                                        relatedSrc2: "https://accessorizelondon.in/cdn/shop/products/MA-58144681001_1.jpg?v=1675312308",
+                                        relatedSrc3: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdeLIUy5nTV3oUqYnDXjfclVX4_kx0pScykQ&s"
+                                     },
+                                    { id: 6, src: "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/29608624/2024/5/29/1044fba7-2f2e-4a36-b5e9-caa39378a56b1716956954143-Roadster-Women-Dresses-9321716956953677-1.jpg",
+                                        relatedSrc1: "https://www.lulus.com/images/product/xlarge/8042801_841582.jpg?w=375&hdpi=1",
+                                        relatedSrc2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb9fQF_BwMAqNrVB4Ip8yNSfQp3Nsz4VUVpw&s",
+                                        relatedSrc3: "https://assets.ajio.com/medias/sys_master/root/20230921/BfgQ/650c2c2bafa4cf41f5f88c70/-473Wx593H-466054387-black-MODEL.jpg"
+                                     },
+                                ].map(item => (
+                                    <div
+                                        key={item.id}
+                                        style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}
+                                    >
+                                        <img
+                                            src={item.src}
+                                            style={{ height: '250px', objectFit: 'contain', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+                                            alt={`img${item.id}`}
+                                            onMouseEnter={() => setHoveredItem(item.id)} 
+                                            onMouseLeave={() => setHoveredItem(null)} 
+                                            className="hover-effect"
+                                        />
+                                
+                                        {hoveredItem === item.id && (
+                                            <div style={{
+                                                position: 'absolute',
+                                                top: '10%',
+                                                right: (item.id % 3 === 0) ? '70%' : '',
+                                                left: (item.id % 3 !== 0) ? '70%' : '',
+                                                backgroundColor: 'white',
+                                                width: '130%',
+                                                height: '90%',
+                                                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                                                zIndex: '10',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'flex-start',
+                                                animation: 'dropdownFadeIn 0.5s ease', 
+                                                transition: 'opacity 0.5s ease, transform 0.5s ease', 
+                                                opacity: 1,
+                                                transform: 'translateY(0)', 
+                                            }}
+                                                onMouseEnter={() => setHoveredItem(item.id)} 
+                                                onMouseLeave={() => setHoveredItem(null)} 
+                                            >
+                                                <h3 style={{ marginBottom: '8px' }}>Items that'll go well with it</h3>
+                                
+                                                <div style={{
+                                                    display: 'flex',
+                                                    width: '100%',
+                                                    justifyContent: 'space-evenly',
+                                                    height: '100%', 
+                                                }}>
+                                                    <img
+                                                        src={item.relatedSrc1} 
+                                                        style={{
+                                                            height: '80%',
+                                                            width:'135px',
+                                                            objectFit: 'cover',
+                                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                                        }}
+                                                        alt={`related1_${item.id}`}
+                                                        className="hover-effect"
+                                                    />
+                                                    <img
+                                                        src={item.relatedSrc2} 
+                                                        style={{
+                                                            height: '80%',
+                                                            width:'135px',
+                                                            objectFit: 'cover',
+                                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                                        }}
+                                                        alt={`related2_${item.id}`}
+                                                        className="hover-effect"
+                                                    />
+                                                    <img
+                                                        src={item.relatedSrc3} 
+                                                        style={{
+                                                            height: '80%',
+                                                            width:'135px',
+                                                            objectFit: 'cover',
+                                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                                        }}
+                                                        alt={`related3_${item.id}`}
+                                                        className="hover-effect"
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="navigation">
+                                <button id="toStep3Back" className="previous" onClick={() => setStep(3)}>Previous</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-                
+
             </div>
         </div>
     );
