@@ -158,5 +158,10 @@ body {
 .ok-button:hover {
   background-color: #74c452;
 }
+.content {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 
   
