@@ -692,7 +692,7 @@ export default function Try() {
             <div id="step3">
                 <h2>Your personal palette for dark undertone</h2>
                 <div ref={complementaryColorsRef} id="complementaryColors"></div>
-                <p>The <b>Autumn</b> contains earthy and warm colors. blah blah blah blah.</p>
+                <p>The <b>Autumn</b> contains earthy and warm colors.</p>
                 <p><b>Please select up to three colors you prefer to proceed with your color choices</b></p>
                 <h3>Best Colors</h3>
                 <div className="colors-containers">
