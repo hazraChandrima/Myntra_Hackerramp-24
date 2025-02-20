@@ -38,7 +38,7 @@
 
 **For Frontend** -
 ```bash
-cd frontend`
+cd frontend
 npm i
 ```
 
