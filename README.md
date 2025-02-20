@@ -36,5 +36,9 @@
 
 <hr/>
 
-**For Frontend** - `cd frontend` ` npm i`
+**For Frontend** -
+```bash
+cd frontend`
+npm i
+```
 
